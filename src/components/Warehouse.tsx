@@ -108,10 +108,7 @@ export function Warehouse() {
           <p className="text-muted-foreground">View all part quantities</p>
         </div>
         <div className="flex space-x-2">
-          <Button variant="outline">
-            <Upload className="h-4 w-4 mr-2" />
-            Import CSV
-          </Button>
+
           <Button onClick={() => setShowAddPartsDialog(true)}>
             <Plus className="h-4 w-4 mr-2" />
             Add Parts

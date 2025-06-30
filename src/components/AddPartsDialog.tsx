@@ -57,12 +57,10 @@ export function AddPartsDialog({ isOpen, onClose, vexPartsData, onAddParts }: Ad
   };
 
   const handleSubmit = () => {
-    const validParts = selectedParts.filter(part => part.totalStock > 0 && part.available >= 0 && part.available <= part.totalStock);
-    if (validParts.length > 0) {
-      onAddParts(validParts);
+    let addparts = selectedParts.map(part=>{part.totalStock=0; part.available=0; return part})
+      onAddParts(addparts);
       setSelectedParts([]);
       onClose();
-    }
   };
 
   return (
@@ -113,7 +111,7 @@ export function AddPartsDialog({ isOpen, onClose, vexPartsData, onAddParts }: Ad
                     <div className="text-sm text-gray-600">{part.name}</div>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <div className="text-xs text-gray-500">Total:</div>
+                    {/* <div className="text-xs text-gray-500">Total:</div>
                     <Input
                       type="number"
                       min="0"
@@ -129,7 +127,7 @@ export function AddPartsDialog({ isOpen, onClose, vexPartsData, onAddParts }: Ad
                       value={part.available}
                       onChange={(e) => updatePartQuantity(part.sku, 'available', parseInt(e.target.value) || 0)}
                       className="w-20"
-                    />
+                    /> */}
                     <Button variant="ghost" size="sm" onClick={() => removePart(part.sku)}>
                       <X className="h-4 w-4" />
                     </Button>
@@ -141,8 +139,8 @@ export function AddPartsDialog({ isOpen, onClose, vexPartsData, onAddParts }: Ad
 
           <div className="flex space-x-2">
             <Button 
-              onClick={handleSubmit} 
-              disabled={selectedParts.length === 0 || !selectedParts.every(p => p.totalStock > 0 && p.available >= 0 && p.available <= p.totalStock)}
+              onClick={handleSubmit}
+              disabled={selectedParts.length === 0}
             >
               Add Parts
             </Button>
