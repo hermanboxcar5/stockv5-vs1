@@ -1,4 +1,6 @@
+
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -11,28 +13,33 @@ import {
   type WarehouseData,
   type Claim,
   type Deposit 
-} from "@/utils/fileSystemManager";
+} from "@/utils/backendService";
 
 interface DashboardProps {
   onNavigate: (view: string, itemId?: string) => void;
 }
 
 export function Dashboard({ onNavigate }: DashboardProps) {
+  const { orgId } = useParams<{ orgId: string }>();
   const [warehouseData, setWarehouseData] = useState<WarehouseData>({});
   const [claims, setClaims] = useState<Claim[]>([]);
   const [deposits, setDeposits] = useState<Deposit[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    loadData();
-  }, []);
+    if (orgId) {
+      loadData();
+    }
+  }, [orgId]);
 
   const loadData = async () => {
+    if (!orgId) return;
+    
     try {
       const [warehouse, claimsData, depositsData] = await Promise.all([
-        loadWarehouse(),
-        loadClaims(),
-        loadDeposits()
+        loadWarehouse(orgId),
+        loadClaims(orgId),
+        loadDeposits(orgId)
       ]);
       setWarehouseData(warehouse);
       setClaims(claimsData);
@@ -54,15 +61,15 @@ export function Dashboard({ onNavigate }: DashboardProps) {
     ...claims.slice(-3).reverse().map(claim => ({
       type: 'claim' as const,
       id: claim.id,
-      description: `${claim.id}`,
-      time: claim.submittedDate,
+      description: `${claim.name}`,
+      time: claim.createdAt,
       status: claim.status
     })),
     ...deposits.slice(-3).reverse().map(deposit => ({
       type: 'deposit' as const,
       id: deposit.id,
-      description: `${deposit.id}`,
-      time: deposit.submittedDate,
+      description: `${deposit.name}`,
+      time: deposit.createdAt,
       status: deposit.status
     }))
   ].sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime()).slice(0, 5);
@@ -79,9 +86,9 @@ export function Dashboard({ onNavigate }: DashboardProps) {
     <div className="space-y-6">
       {/* Alerts - only show for negative stock */}
       {negativeStockParts.length > 0 && (
-        <Alert className="border-red-600 bg-red-900">
+        <Alert className="bg-red-100 border-red-600 dark:bg-red-900">
           <AlertTriangle className="h-4 w-4 text-red-400" />
-          <AlertDescription className="text-red-100">
+          <AlertDescription className="text-red-600 dark:text-red-100">
             <strong>Negative Stock Alert:</strong> There are parts that need to be ordered immidiately to satisfy all approved Claims.
             <Button 
               variant="link" 

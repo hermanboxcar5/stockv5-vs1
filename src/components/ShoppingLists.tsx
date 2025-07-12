@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -6,25 +7,28 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Input } from "@/components/ui/input";
 import { ShoppingCart, Plus, Download, ExternalLink, Trash2, Package, Upload } from "lucide-react";
 import { 
-  loadShoppingLists, 
-  saveShoppingLists, 
+  loadShoppingLists,
+  createShoppingList,
+  modifyShoppingList,
+  deleteShoppingList,
   loadClaims,
   loadWarehouse,
   loadVexParts,
   loadDeposits,
-  saveDeposits,
+  createDeposit,
   type ShoppingList,
   type Claim,
   type WarehouseData,
   type VexPartsData,
   type Deposit 
-} from "@/utils/fileSystemManager";
+} from "@/utils/backendService";
 
 interface ShoppingListsProps {
   onNavigate?: (view: string, itemId?: string) => void;
 }
 
 export function ShoppingLists({ onNavigate }: ShoppingListsProps) {
+  const { orgId } = useParams<{ orgId: string }>();
   const [shoppingLists, setShoppingLists] = useState<ShoppingList[]>([]);
   const [claims, setClaims] = useState<Claim[]>([]);
   const [deposits, setDeposits] = useState<Deposit[]>([]);
@@ -40,21 +44,25 @@ export function ShoppingLists({ onNavigate }: ShoppingListsProps) {
   const [newListItems, setNewListItems] = useState<Array<{sku: string, name: string, quantity: number, price: string, url: string, stock: boolean}>>([]);
 
   useEffect(() => {
-    loadData();
-  }, []);
+    if (orgId) {
+      loadData();
+    }
+  }, [orgId]);
 
   const parsePrice = (priceString: string): number => {
     return parseFloat(priceString.replace(/[$,]/g, '')) || 0;
   };
 
   const loadData = async () => {
+    if (!orgId) return;
+    
     try {
       const [lists, claimsData, warehouse, vexParts, depositsData] = await Promise.all([
-        loadShoppingLists(),
-        loadClaims(),
-        loadWarehouse(),
+        loadShoppingLists(orgId),
+        loadClaims(orgId),
+        loadWarehouse(orgId),
         loadVexParts(),
-        loadDeposits()
+        loadDeposits(orgId)
       ]);
       
       // Generate required parts list from negative stock items
@@ -69,8 +77,8 @@ export function ShoppingLists({ onNavigate }: ShoppingListsProps) {
       const requiredList: ShoppingList = {
         id: "default",
         name: "Required Parts (Auto-generated)",
-        description: "Parts with negative stock that need to be ordered",
-        isDefault: true,
+        createdAt: new Date().toISOString(),
+        createdBy: "system",
         items: Object.entries(requiredParts).map(([sku, quantity]) => {
           const part = vexParts[sku];
           return {
@@ -81,16 +89,10 @@ export function ShoppingLists({ onNavigate }: ShoppingListsProps) {
             url: part?.url || "",
             stock: part?.stock || false
           };
-        }),
-        totalCost: Object.entries(requiredParts).reduce((total, [sku, quantity]) => {
-          const part = vexParts[sku];
-          const price = parsePrice(part?.price || '$0');
-          return total + (price * quantity);
-        }, 0)
+        })
       };
 
-      const customLists = lists.filter(list => !list.isDefault);
-      const allLists = requiredList.items.length > 0 ? [requiredList, ...customLists] : customLists;
+      const allLists = requiredList.items.length > 0 ? [requiredList, ...lists] : lists;
       
       setShoppingLists(allLists);
       setClaims(claimsData);
@@ -143,30 +145,15 @@ export function ShoppingLists({ onNavigate }: ShoppingListsProps) {
   };
 
   const createList = async () => {
-    if (newListName && newListItems.length > 0) {
-      const totalCost = newListItems.reduce((total, item) => {
-        return total + (parsePrice(item.price) * item.quantity);
-      }, 0);
+    if (!orgId || !newListName || newListItems.length === 0) return;
 
-      const newList: ShoppingList = {
-        id: `LIST-${String(shoppingLists.length + 1).padStart(3, '0')}`,
-        name: newListName,
-        description: newListDescription,
-        isDefault: false,
-        items: newListItems,
-        totalCost
-      };
-      
-      const customLists = shoppingLists.filter(list => !list.isDefault);
-      const updatedLists = [...customLists, newList];
-      await saveShoppingLists(updatedLists);
-      
-      setShowCreateForm(false);
-      setNewListName("");
-      setNewListDescription("");
-      setNewListItems([]);
-      loadData(); // Reload to include the new list
-    }
+    await createShoppingList(orgId, newListName, newListItems);
+    
+    setShowCreateForm(false);
+    setNewListName("");
+    setNewListDescription("");
+    setNewListItems([]);
+    loadData();
   };
 
   const handleExportCSV = (listId: string) => {
@@ -194,7 +181,7 @@ export function ShoppingLists({ onNavigate }: ShoppingListsProps) {
     
     input.onchange = async (e) => {
       const file = (e.target as HTMLInputElement).files?.[0];
-      if (!file) return;
+      if (!file || !orgId) return;
       
       const text = await file.text();
       const lines = text.split('\n').filter(line => line.trim());
@@ -217,27 +204,12 @@ export function ShoppingLists({ onNavigate }: ShoppingListsProps) {
       }
       
       if (items.length > 0) {
-        const totalCost = items.reduce((total, item) => {
-          return total + (parsePrice(item.price) * item.quantity);
-        }, 0);
-
         const today = new Date().toLocaleDateString();
         const existingImportsToday = shoppingLists.filter(list => 
           list.name && list.name.includes(`Imported List ${today}`)
         ).length;
 
-        const newList: ShoppingList = {
-          id: `LIST-${String(shoppingLists.length + 1).padStart(3, '0')}`,
-          name: `Imported List ${today} ${existingImportsToday + 1}`,
-          description: "Imported from CSV",
-          isDefault: false,
-          items,
-          totalCost
-        };
-        
-        const customLists = shoppingLists.filter(list => !list.isDefault);
-        const updatedLists = [...customLists, newList];
-        await saveShoppingLists(updatedLists);
+        await createShoppingList(orgId, `Imported List ${today} ${existingImportsToday + 1}`, items);
         loadData();
       }
     };
@@ -247,13 +219,11 @@ export function ShoppingLists({ onNavigate }: ShoppingListsProps) {
 
   const handleCreateDeposit = async (listId: string) => {
     const list = shoppingLists.find(l => l.id === listId);
-    if (!list) return;
+    if (!list || !orgId) return;
 
-    const newDeposit: Deposit = {
-      id: `DEP-${String(deposits.length + 1).padStart(3, '0')}`,
+    const depositData = {
       teamName: "Purchase Order",
       submittedDate: new Date().toISOString().split('T')[0],
-      status: 'pending',
       items: list.items.map(item => ({
         sku: item.sku,
         name: item.name,
@@ -261,18 +231,16 @@ export function ShoppingLists({ onNavigate }: ShoppingListsProps) {
       }))
     };
     
-    const updatedDeposits = [...deposits, newDeposit];
-    setDeposits(updatedDeposits);
-    await saveDeposits(updatedDeposits);
+    await createDeposit(orgId, "Purchase Order Deposit", depositData);
     
     if (onNavigate) {
-      onNavigate('deposits', newDeposit.id);
+      onNavigate('deposits');
     }
   };
 
   const handleDeleteList = async (listId: string) => {
-    const updatedLists = shoppingLists.filter(list => list.id !== listId && !list.isDefault);
-    await saveShoppingLists(updatedLists);
+    if (!orgId) return;
+    await deleteShoppingList(orgId, listId);
     loadData();
   };
 
@@ -392,109 +360,114 @@ export function ShoppingLists({ onNavigate }: ShoppingListsProps) {
 
       {/* Shopping Lists */}
       <div className="space-y-6">
-        {shoppingLists.map((list) => (
-          <Card key={list.id}>
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <ShoppingCart className="h-5 w-5 text-blue-600" />
-                  <div>
-                    <div className="flex items-center space-x-2">
-                      <CardTitle className="text-lg">{list.name}</CardTitle>
-                      {list.isDefault && (
-                        <Badge variant="secondary" className="text-xs">Auto-generated</Badge>
-                      )}
+        {shoppingLists.map((list) => {
+          const totalCost = list.items.reduce((total, item) => {
+            return total + (parsePrice(item.price) * item.quantity);
+          }, 0);
+
+          return (
+            <Card key={list.id}>
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <ShoppingCart className="h-5 w-5 text-blue-600" />
+                    <div>
+                      <div className="flex items-center space-x-2">
+                        <CardTitle className="text-lg">{list.name}</CardTitle>
+                        {list.id === "default" && (
+                          <Badge variant="secondary" className="text-xs">Auto-generated</Badge>
+                        )}
+                      </div>
                     </div>
-                    <CardDescription>{list.description}</CardDescription>
                   </div>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="text-right">
-                    <div className="text-2xl font-bold">${list.totalCost.toFixed(2)}</div>
-                    <div className="text-sm text-gray-500">{list.items.length} items</div>
-                  </div>
-                  <div className="flex space-x-2">
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => handleExportCSV(list.id)}
-                    >
-                      <Download className="h-4 w-4 mr-1" />
-                      Export CSV
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => window.open('https://www.vexrobotics.com/quickorder/', '_blank')}
-                    >
-                      <ExternalLink className="h-4 w-4 mr-1" />
-                      VEX Quick Order
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => handleCreateDeposit(list.id)}
-                    >
-                      <Package className="h-4 w-4 mr-1" />
-                      Create Deposit
-                    </Button>
-                    {!list.isDefault && (
+                  <div className="flex items-center space-x-3">
+                    <div className="text-right">
+                      <div className="text-2xl font-bold">${totalCost.toFixed(2)}</div>
+                      <div className="text-sm text-gray-500">{list.items.length} items</div>
+                    </div>
+                    <div className="flex space-x-2">
                       <Button 
                         variant="outline" 
                         size="sm"
-                        onClick={() => handleDeleteList(list.id)}
+                        onClick={() => handleExportCSV(list.id)}
                       >
-                        <Trash2 className="h-4 w-4" />
+                        <Download className="h-4 w-4 mr-1" />
+                        Export CSV
                       </Button>
-                    )}
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => window.open('https://www.vexrobotics.com/quickorder/', '_blank')}
+                      >
+                        <ExternalLink className="h-4 w-4 mr-1" />
+                        VEX Quick Order
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => handleCreateDeposit(list.id)}
+                      >
+                        <Package className="h-4 w-4 mr-1" />
+                        Create Deposit
+                      </Button>
+                      {list.id !== "default" && (
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => handleDeleteList(list.id)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>SKU</TableHead>
-                    <TableHead>Part Name</TableHead>
-                    <TableHead className="text-right">Quantity</TableHead>
-                    <TableHead className="text-right">Unit Price</TableHead>
-                    <TableHead className="text-right">Total</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead></TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {list.items.map((item, index) => (
-                    <TableRow key={index}>
-                      <TableCell className="font-mono text-sm">VEX-{item.sku}</TableCell>
-                      <TableCell>{item.name}</TableCell>
-                      <TableCell className="text-right font-medium">{item.quantity}</TableCell>
-                      <TableCell className="text-right">{item.price}</TableCell>
-                      <TableCell className="text-right font-medium">
-                        ${(parsePrice(item.price) * item.quantity).toFixed(2)}
-                      </TableCell>
-                      <TableCell>
-                        {item.stock ? (
-                          <Badge className="bg-green-100 text-green-800 text-xs">In Stock</Badge>
-                        ) : (
-                          <Badge variant="destructive" className="text-xs">Out of Stock</Badge>
-                        )}
-                      </TableCell>
-                      <TableCell>
-                        <Button variant="ghost" size="sm" className="h-6 w-6 p-0" asChild>
-                          <a href={item.url} target="_blank" rel="noopener noreferrer">
-                            <ExternalLink className="h-3 w-3" />
-                          </a>
-                        </Button>
-                      </TableCell>
+              </CardHeader>
+              <CardContent>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>SKU</TableHead>
+                      <TableHead>Part Name</TableHead>
+                      <TableHead className="text-right">Quantity</TableHead>
+                      <TableHead className="text-right">Unit Price</TableHead>
+                      <TableHead className="text-right">Total</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead></TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-        ))}
+                  </TableHeader>
+                  <TableBody>
+                    {list.items.map((item, index) => (
+                      <TableRow key={index}>
+                        <TableCell className="font-mono text-sm">VEX-{item.sku}</TableCell>
+                        <TableCell>{item.name}</TableCell>
+                        <TableCell className="text-right font-medium">{item.quantity}</TableCell>
+                        <TableCell className="text-right">{item.price}</TableCell>
+                        <TableCell className="text-right font-medium">
+                          ${(parsePrice(item.price) * item.quantity).toFixed(2)}
+                        </TableCell>
+                        <TableCell>
+                          {item.stock ? (
+                            <Badge className="bg-green-100 text-green-800 text-xs">In Stock</Badge>
+                          ) : (
+                            <Badge variant="destructive" className="text-xs">Out of Stock</Badge>
+                          )}
+                        </TableCell>
+                        <TableCell>
+                          <Button variant="ghost" size="sm" className="h-6 w-6 p-0" asChild>
+                            <a href={item.url} target="_blank" rel="noopener noreferrer">
+                              <ExternalLink className="h-3 w-3" />
+                            </a>
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
+          );
+        })}
       </div>
 
       {shoppingLists.length === 0 && (

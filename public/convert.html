@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>StockV5: Legacy storage (folder) to backup json Converter</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 2rem;
+    background: #f9f9f9;
+  }
+  h1 {
+    margin-bottom: 1rem;
+  }
+  label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: bold;
+  }
+  input[type="text"] {
+    width: 300px;
+    padding: 0.4rem;
+    font-size: 1rem;
+  }
+  input[type="file"] {
+    margin-top: 0.5rem;
+  }
+  button {
+    margin-top: 1.5rem;
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  textarea {
+    margin-top: 2rem;
+    width: 100%;
+    height: 400px;
+    font-family: monospace;
+    font-size: 0.9rem;
+  }
+</style>
+</head>
+<body>
+
+<h1>StockV5: Legacy storage (folder) to backup json Converter</h1>
+
+<label for="nameInput">New Format Name:</label>
+<input type="text" id="nameInput" placeholder="Enter name for new JSON" />
+
+<label for="folderInput">Select folder containing <code>claims.json</code>, <code>deposits.json</code>, <code>shopping-lists.json</code>, <code>warehouse.json</code>:</label>
+<input type="file" id="folderInput" webkitdirectory directory multiple />
+
+<button id="convertBtn">Convert</button>
+<button id="downloadBtn" style="display:none;">Download JSON</button>
+
+<textarea id="output" readonly placeholder="Converted JSON output will appear here..."></textarea>
+
+<script>
+  let latestJsonString = '';
+
+  document.getElementById('convertBtn').addEventListener('click', async () => {
+    const name = document.getElementById('nameInput').value.trim();
+    if (!name) {
+      alert('Please enter a name for the new JSON.');
+      return;
+    }
+
+    const files = document.getElementById('folderInput').files;
+    if (!files.length) {
+      alert('Please select a folder containing the JSON files.');
+      return;
+    }
+
+    // Helper to read file by name from the folder input
+    const readFileByName = async (filename) => {
+      for (const file of files) {
+        if (file.name === filename) {
+          return JSON.parse(await file.text());
+        }
+      }
+      return null;
+    };
+
+    // Read old JSON files
+    const oldClaims = await readFileByName('claims.json');
+    const oldDeposits = await readFileByName('deposits.json');
+    const oldShoppingLists = await readFileByName('shopping-lists.json');
+    const oldWarehouse = await readFileByName('warehouse.json');
+
+    if (!oldClaims || !oldDeposits || !oldShoppingLists || !oldWarehouse) {
+      alert('One or more JSON files missing in the selected folder.');
+      return;
+    }
+
+    const nowISO = new Date().toISOString();
+
+    // Convert Claims
+    const newClaims = {};
+    oldClaims.forEach((claim, idx) => {
+      const id = `CLAIM-${Date.now()}-${Math.random().toString(36).slice(2,8)}-${idx}`;
+      newClaims[id] = {
+        id: id,
+        data: {
+          items: claim.items.map(i => ({
+            sku: i.sku,
+            name: i.name,
+            quantity: i.quantity
+          })),
+          teamName: claim.teamName,
+          canFulfill: claim.canFulfill ?? false,
+          submittedDate: claim.submittedDate
+        },
+        name: `Claim by ${claim.teamName}`,
+        status: claim.status,
+        createdAt: nowISO,
+        createdBy: "unknown",
+        approvedAt: claim.status === 'approved' ? nowISO : undefined,
+        approvedBy: claim.status === 'approved' ? "unknown" : undefined
+      };
+    });
+
+    // Convert Deposits
+    const newDeposits = {};
+    oldDeposits.forEach((deposit, idx) => {
+      const id = `DEPOSIT-${Date.now()}-${Math.random().toString(36).slice(2,8)}-${idx}`;
+      newDeposits[id] = {
+        id: id,
+        data: {
+          items: deposit.items.map(i => ({
+            sku: i.sku,
+            name: i.name,
+            quantity: i.quantity
+          })),
+          teamName: deposit.teamName,
+          submittedDate: deposit.submittedDate
+        },
+        name: `Deposit by ${deposit.teamName}`,
+        status: deposit.status,
+        createdAt: nowISO,
+        createdBy: "unknown",
+        approvedAt: deposit.status === 'approved' ? nowISO : undefined,
+        approvedBy: deposit.status === 'approved' ? "unknown" : undefined
+      };
+    });
+
+    // Convert Shopping Lists
+    const newShoppingLists = {};
+    oldShoppingLists.forEach((list, idx) => {
+      const id = `LIST-${Date.now()}-${Math.random().toString(36).slice(2,8)}-${idx}`;
+      newShoppingLists[id] = {
+        id: id,
+        name: list.name,
+        items: list.items.map(i => ({
+          sku: i.sku,
+          url: i.url,
+          name: i.name,
+          price: i.price,
+          stock: i.stock,
+          quantity: i.quantity
+        })),
+        createdAt: nowISO,
+        createdBy: "unknown"
+      };
+    });
+
+    // Convert Warehouse - copy as is but flatten keys
+    const newWarehouse = {};
+    Object.entries(oldWarehouse).forEach(([sku, item]) => {
+      newWarehouse[sku] = {
+        url: item.url,
+        name: item.name,
+        type: item.type ?? null,
+        price: item.price,
+        stock: item.stock,
+        thumbnail: item.thumbnail,
+        inventoryStock: item.inventoryStock
+      };
+    });
+
+    // Construct new full JSON
+    const newJson = {
+      name,
+      claims: newClaims,
+      deposits: newDeposits,
+      warehouse: newWarehouse,
+      shoppinglists: newShoppingLists
+    };
+
+    latestJsonString = JSON.stringify(newJson, null, 2);
+    document.getElementById('output').value = latestJsonString;
+
+    // Show download button
+    document.getElementById('downloadBtn').style.display = 'inline-block';
+  });
+
+  document.getElementById('downloadBtn').addEventListener('click', () => {
+    if (!latestJsonString) {
+      alert('No JSON to download. Please convert first.');
+      return;
+    }
+    const blob = new Blob([latestJsonString], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'archive.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+</script>
+
+</body>
+</html>

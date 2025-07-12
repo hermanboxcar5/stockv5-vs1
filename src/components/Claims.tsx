@@ -1,31 +1,45 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { FileText, Plus, Upload, Check, X, Trash2, Edit } from "lucide-react";
+import { Plus, Upload, Check, X, Trash2, Edit, Minus, Loader2 } from "lucide-react";
 import { 
-  loadClaims, 
-  saveClaims, 
+  loadClaims,
+  createClaim,
+  modifyClaim,
+  approveClaim,
+  deleteClaim,
   loadWarehouse,
-  saveWarehouse,
   loadVexParts,
   type Claim,
   type WarehouseData,
   type VexPartsData 
-} from "@/utils/fileSystemManager";
+} from "@/utils/backendService";
+import { useImportCsv } from '../hooks/use-import-csv';
 
 interface ClaimsProps {
   highlightedClaim?: string;
   onNavigate?: (path: string) => void;
+  onWarehouseUpdate?: () => void;
 }
 
-export function Claims({ highlightedClaim, onNavigate }: ClaimsProps) {
+export function Claims({ highlightedClaim, onNavigate, onWarehouseUpdate }: ClaimsProps) {
+  const { orgId } = useParams<{ orgId: string }>();
   const [claims, setClaims] = useState<Claim[]>([]);
   const [warehouseData, setWarehouseData] = useState<WarehouseData>({});
   const [vexPartsData, setVexPartsData] = useState<VexPartsData>({});
   const [isLoading, setIsLoading] = useState(true);
+  const [processingClaims, setProcessingClaims] = useState<Set<string>>(new Set());
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [editingClaim, setEditingClaim] = useState<string | null>(null);
   const [newClaimTeam, setNewClaimTeam] = useState("");
@@ -33,16 +47,21 @@ export function Claims({ highlightedClaim, onNavigate }: ClaimsProps) {
   const [selectedSku, setSelectedSku] = useState("");
   const [quantity, setQuantity] = useState("");
   const [newClaimItems, setNewClaimItems] = useState<Array<{sku: string, name: string, quantity: number}>>([]);
+  const [csvType, setCsvType] = useState("");
 
   useEffect(() => {
-    loadData();
-  }, []);
+    if (orgId) {
+      loadData();
+    }
+  }, [orgId]);
 
   const loadData = async () => {
+    if (!orgId) return;
+    
     try {
       const [claimsData, warehouse, vexParts] = await Promise.all([
-        loadClaims(),
-        loadWarehouse(),
+        loadClaims(orgId),
+        loadWarehouse(orgId),
         loadVexParts()
       ]);
       setClaims(claimsData);
@@ -55,57 +74,21 @@ export function Claims({ highlightedClaim, onNavigate }: ClaimsProps) {
     }
   };
 
-  const handleImportCSV = async () => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = '.csv';
-    
-    input.onchange = async (e) => {
-      const file = (e.target as HTMLInputElement).files?.[0];
-      if (!file) return;
-      
-      const text = await file.text();
-      const lines = text.split('\n').filter(line => line.trim());
-      const claimItems: Array<{sku: string, name: string, quantity: number}> = [];
-      
-      // Skip header line, process all data lines
-      for (let i = 1; i < lines.length; i++) {
-        const [sku, qty, team] = lines[i].split(',').map(s => s.trim());
-        if (sku && qty && vexPartsData[sku]) {
-          const part = vexPartsData[sku];
-          claimItems.push({
-            sku,
-            name: part.name,
-            quantity: parseInt(qty) || 1
-          });
-        }
-      }
-      
-      if (claimItems.length > 0) {
-        const today = new Date().toLocaleDateString();
-        const existingImportsToday = claims.filter(c => 
-          c.teamName && c.teamName.includes(`Imported Claim ${today}`)
-        ).length;
-        
-        const newClaim: Claim = {
-          id: `CLM-${String(claims.length + 1).padStart(3, '0')}`,
-          teamName: `Imported Claim ${today} ${existingImportsToday + 1}`,
-          submittedDate: new Date().toISOString().split('T')[0],
-          status: 'pending',
-          items: claimItems,
-          canFulfill: claimItems.every(item => 
-            (warehouseData[item.sku]?.inventoryStock || 0) >= item.quantity
-          )
-        };
-        
-        const updatedClaims = [...claims, newClaim];
-        setClaims(updatedClaims);
-        await saveClaims(updatedClaims);
-      }
-    };
-    
-    input.click();
-  };
+  const importClaims = useImportCsv<Claim>({
+    prefix: 'Claim',
+    list: claims,
+    setList: setClaims,
+    saveList: async () => {}, // Not used anymore
+    partData: vexPartsData,
+    stockData: warehouseData,
+    csvType: csvType as 'stockv5' | 'onshape' | 'default',
+    createRecord: async (name: string, data: any) => {
+      if (!orgId) throw new Error('No organization ID');
+      await createClaim(orgId, name, data);
+      // Reload data after creating
+      await loadData();
+    }
+  });
 
   const filteredParts = Object.entries(vexPartsData).filter(([sku, part]) => 
     searchTerm && (
@@ -142,103 +125,66 @@ export function Claims({ highlightedClaim, onNavigate }: ClaimsProps) {
     }
   };
 
-  const createClaim = async () => {
-    if (newClaimTeam && newClaimItems.length > 0) {
-      const newClaim: Claim = {
-        id: `CLM-${String(claims.length + 1).padStart(3, '0')}`,
-        teamName: newClaimTeam,
-        submittedDate: new Date().toISOString().split('T')[0],
-        status: 'pending',
-        items: newClaimItems,
-        canFulfill: newClaimItems.every(item => 
-          (warehouseData[item.sku]?.inventoryStock || 0) >= item.quantity
-        )
-      };
-      
-      const updatedClaims = [...claims, newClaim];
-      setClaims(updatedClaims);
-      await saveClaims(updatedClaims);
-      
-      setShowCreateForm(false);
-      setNewClaimTeam("");
-      setNewClaimItems([]);
-    }
-  };
+  const createNewClaim = async () => {
+    if (!orgId || !newClaimTeam || newClaimItems.length === 0) return;
 
-  const startEdit = (claimId: string) => {
-    const claim = claims.find(c => c.id === claimId);
-    if (claim && claim.status === 'pending') {
-      setEditingClaim(claimId);
-      setNewClaimTeam(claim.teamName);
-      setNewClaimItems([...claim.items]);
-    }
-  };
+    const claimData = {
+      teamName: newClaimTeam,
+      submittedDate: new Date().toISOString().split('T')[0],
+      items: newClaimItems,
+      canFulfill: newClaimItems.every(item => 
+        warehouseData[item.sku] && warehouseData[item.sku].inventoryStock >= item.quantity
+      )
+    };
 
-  const saveEdit = async () => {
-    if (editingClaim && newClaimTeam && newClaimItems.length > 0) {
-      const updatedClaims = claims.map(claim => 
-        claim.id === editingClaim 
-          ? {
-              ...claim,
-              teamName: newClaimTeam,
-              items: newClaimItems,
-              canFulfill: newClaimItems.every(item => 
-                (warehouseData[item.sku]?.inventoryStock || 0) >= item.quantity
-              )
-            }
-          : claim
-      );
-      
-      setClaims(updatedClaims);
-      await saveClaims(updatedClaims);
-      
-      setEditingClaim(null);
-      setNewClaimTeam("");
-      setNewClaimItems([]);
-    }
-  };
-
-  const cancelEdit = () => {
-    setEditingClaim(null);
+    await createClaim(orgId, `Claim by ${newClaimTeam}`, claimData);
+    
+    setShowCreateForm(false);
     setNewClaimTeam("");
     setNewClaimItems([]);
+    loadData();
   };
 
   const handleApproveClaim = async (claimId: string) => {
-    const claim = claims.find(c => c.id === claimId);
-    if (!claim) return;
+    if (!orgId || processingClaims.has(claimId)) return;
 
-    const updatedWarehouse = { ...warehouseData };
-    claim.items.forEach(item => {
-      if (updatedWarehouse[item.sku]) {
-        updatedWarehouse[item.sku].inventoryStock -= item.quantity;
-      } else {
-        const vexPart = vexPartsData[item.sku];
-        if (vexPart) {
-          updatedWarehouse[item.sku] = {
-            ...vexPart,
-            inventoryStock: -item.quantity
-          };
-        }
+    setProcessingClaims(prev => new Set(prev).add(claimId));
+
+    try {
+      await approveClaim(orgId, claimId);
+      await loadData();
+      // Notify parent component that warehouse was updated
+      if (onWarehouseUpdate) {
+        onWarehouseUpdate();
       }
-    });
-
-    const updatedClaims = claims.map(c => 
-      c.id === claimId ? { ...c, status: 'approved' as const } : c
-    );
-
-    setWarehouseData(updatedWarehouse);
-    setClaims(updatedClaims);
-    await Promise.all([
-      saveWarehouse(updatedWarehouse),
-      saveClaims(updatedClaims)
-    ]);
+    } catch (error) {
+      console.error('Failed to approve claim:', error);
+    } finally {
+      setProcessingClaims(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(claimId);
+        return newSet;
+      });
+    }
   };
 
   const handleReject = async (claimId: string) => {
-    const updatedClaims = claims.filter(c => c.id !== claimId);
-    setClaims(updatedClaims);
-    await saveClaims(updatedClaims);
+    if (!orgId || processingClaims.has(claimId)) return;
+
+    setProcessingClaims(prev => new Set(prev).add(claimId));
+
+    try {
+      await deleteClaim(orgId, claimId);
+      await loadData();
+    } catch (error) {
+      console.error('Failed to reject claim:', error);
+    } finally {
+      setProcessingClaims(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(claimId);
+        return newSet;
+      });
+    }
   };
 
   const getStockColor = (stock: number) => {
@@ -251,18 +197,28 @@ export function Claims({ highlightedClaim, onNavigate }: ClaimsProps) {
   const approvedClaims = claims.filter(claim => claim.status === 'approved');
 
   if (isLoading) {
-    return <div className="flex items-center justify-center py-12 text-foreground">Loading claims...</div>;
+    return <div className="flex items-center justify-center py-12">Loading claims...</div>;
   }
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-foreground">Claims</h2>
-          <p className="text-muted-foreground">Review and manage team part requests</p>
+          <h2 className="text-2xl font-bold">Claims</h2>
+          <p className="text-gray-600">Process part requests and inventory claims</p>
         </div>
         <div className="flex space-x-2">
-          <Button variant="outline" onClick={handleImportCSV}>
+
+    	  <Select value={csvType} onValueChange={setCsvType}>
+      	    <SelectTrigger>
+              <SelectValue placeholder="Choose a CSV Type" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="stockv5">StockV5</SelectItem>
+              <SelectItem value="onshape">Onshape</SelectItem>
+            </SelectContent>
+          </Select>
+          <Button variant="outline" onClick={importClaims}>
             <Upload className="h-4 w-4 mr-2" />
             Import Claims CSV
           </Button>
@@ -273,10 +229,10 @@ export function Claims({ highlightedClaim, onNavigate }: ClaimsProps) {
         </div>
       </div>
 
-      {(showCreateForm || editingClaim) && (
+      {showCreateForm && (
         <Card>
           <CardHeader>
-            <CardTitle>{editingClaim ? 'Edit Claim' : 'Create New Claim'}</CardTitle>
+            <CardTitle>Create New Claim</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <Input
@@ -293,18 +249,18 @@ export function Claims({ highlightedClaim, onNavigate }: ClaimsProps) {
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 {filteredParts.length > 0 && (
-                  <div className="absolute top-full left-0 right-0 bg-popover border border-border rounded-md shadow-lg z-10 max-h-48 overflow-y-auto">
+                  <div className="absolute top-full left-0 right-0 bg-white border rounded-md shadow-lg z-10 max-h-48 overflow-y-auto">
                     {filteredParts.map(([sku, part]) => (
                       <div
                         key={sku}
-                        className="p-2 hover:bg-accent cursor-pointer text-popover-foreground"
+                        className="p-2 hover:bg-gray-100 cursor-pointer"
                         onClick={() => {
                           setSelectedSku(sku);
                           setSearchTerm(`VEX-${sku} - ${part.name}`);
                         }}
                       >
                         <div className="font-mono text-sm">VEX-{sku}</div>
-                        <div className="text-sm text-muted-foreground">{part.name}</div>
+                        <div className="text-sm text-gray-600">{part.name}</div>
                       </div>
                     ))}
                   </div>
@@ -322,10 +278,10 @@ export function Claims({ highlightedClaim, onNavigate }: ClaimsProps) {
 
             {newClaimItems.length > 0 && (
               <div className="space-y-2">
-                <h4 className="font-medium text-foreground">Items in Claim:</h4>
+                <h4 className="font-medium">Items in Claim:</h4>
                 {newClaimItems.map((item, index) => (
-                  <div key={index} className="flex justify-between items-center p-2 bg-muted rounded">
-                    <span className="text-foreground"><span className="font-mono">VEX-{item.sku}</span> - {item.name}</span>
+                  <div key={index} className="flex justify-between items-center p-2 bg-gray-50 rounded">
+                    <span><span className="font-mono">VEX-{item.sku}</span> - {item.name}</span>
                     <div className="flex items-center space-x-2">
                       <Input
                         type="number"
@@ -349,15 +305,12 @@ export function Claims({ highlightedClaim, onNavigate }: ClaimsProps) {
 
             <div className="flex space-x-2">
               <Button 
-                onClick={editingClaim ? saveEdit : createClaim} 
+                onClick={createNewClaim} 
                 disabled={!newClaimTeam || newClaimItems.length === 0}
               >
-                {editingClaim ? 'Save Changes' : 'Create Claim'}
+                Create Claim
               </Button>
-              <Button 
-                variant="outline" 
-                onClick={editingClaim ? cancelEdit : () => setShowCreateForm(false)}
-              >
+              <Button variant="outline" onClick={() => setShowCreateForm(false)}>
                 Cancel
               </Button>
             </div>
@@ -369,89 +322,95 @@ export function Claims({ highlightedClaim, onNavigate }: ClaimsProps) {
       {pendingClaims.length > 0 && (
         <div className="space-y-4">
           <h3 className="text-xl font-semibold">Pending Claims</h3>
-          {pendingClaims.map((claim) => (
-            <Card key={claim.id} className={highlightedClaim === claim.id ? "ring-2 ring-blue-500" : ""}>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <FileText className="h-5 w-5 text-blue-600" />
-                    <div>
-                      <CardTitle className="text-lg">{claim.id}</CardTitle>
-                      <CardDescription>
-                        {claim.teamName} • Submitted {new Date(claim.submittedDate).toLocaleDateString()}
-                      </CardDescription>
+          {pendingClaims.map((claim) => {
+            const isProcessing = processingClaims.has(claim.id);
+            return (
+              <Card key={claim.id} className={highlightedClaim === claim.id ? "ring-2 ring-blue-500" : ""}>
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <Minus className="h-5 w-5 text-red-600" />
+                      <div>
+                        <CardTitle className="text-lg">{claim.name}</CardTitle>
+                        <CardDescription>
+                          {claim.data.teamName} • Submitted {new Date(claim.data.submittedDate).toLocaleDateString()}
+                        </CardDescription>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <Badge variant="secondary">Pending</Badge>
+                      {claim.data.canFulfill ? (
+                        <Badge className="bg-green-100 text-green-800">Can Fulfill</Badge>
+                      ) : (
+                        <Badge variant="destructive">Will Create Negative Stock</Badge>
+                      )}
+                      <div className="flex space-x-2">
+                        
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          onClick={() => handleReject(claim.id)}
+                          disabled={isProcessing}
+                        >
+                          {isProcessing ? (
+                            <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                          ) : (
+                            <X className="h-4 w-4 mr-1" />
+                          )}
+                          Reject
+                        </Button>
+                        <Button 
+                          size="sm"
+                          onClick={() => handleApproveClaim(claim.id)}
+                          disabled={isProcessing}
+                        >
+                          {isProcessing ? (
+                            <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                          ) : (
+                            <Check className="h-4 w-4 mr-1" />
+                          )}
+                          Approve
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-3">
-                    {!claim.canFulfill && (
-                      <Badge variant="destructive" className="text-xs">
-                        Insufficient Stock
-                      </Badge>
-                    )}
-                    <Badge variant="secondary">Pending</Badge>
-                    <div className="flex space-x-2">
-                      <Button 
-                        size="sm" 
-                        variant="outline"
-                        onClick={() => startEdit(claim.id)}
-                        disabled={editingClaim === claim.id}
-                      >
-                        <Edit className="h-4 w-4 mr-1" />
-                        Edit
-                      </Button>
-                      <Button 
-                        size="sm" 
-                        variant="outline"
-                        onClick={() => handleReject(claim.id)}
-                      >
-                        <X className="h-4 w-4 mr-1" />
-                        Reject
-                      </Button>
-                      <Button 
-                        size="sm"
-                        onClick={() => handleApproveClaim(claim.id)}
-                      >
-                        <Check className="h-4 w-4 mr-1" />
-                        Approve
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>SKU</TableHead>
-                      <TableHead>Part Name</TableHead>
-                      <TableHead className="text-right">Current Stock</TableHead>
-                      <TableHead className="text-right">Requested</TableHead>
-                      <TableHead className="text-right">After Approval</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {claim.items.map((item, index) => {
-                      const currentStock = warehouseData[item.sku]?.inventoryStock || 0;
-                      const afterApproval = currentStock - item.quantity;
-                      return (
-                        <TableRow key={index}>
-                          <TableCell className="font-mono text-sm">VEX-{item.sku}</TableCell>
-                          <TableCell>{item.name}</TableCell>
-                          <TableCell className={`text-right font-medium ${getStockColor(currentStock)}`}>
-                            {currentStock}
-                          </TableCell>
-                          <TableCell className="text-right font-medium">{item.quantity}</TableCell>
-                          <TableCell className={`text-right font-medium ${getStockColor(afterApproval)}`}>
-                            {afterApproval}
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-          ))}
+                </CardHeader>
+                <CardContent>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>SKU</TableHead>
+                        <TableHead>Part Name</TableHead>
+                        <TableHead className="text-right">Available</TableHead>
+                        <TableHead className="text-right">Requested</TableHead>
+                        <TableHead className="text-right">After Approval</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {claim.data.items.map((item, index) => {
+                        const currentAvailable = warehouseData[item.sku]?.inventoryStock || 0;
+                        const afterApproval = currentAvailable - item.quantity;
+                        
+                        return (
+                          <TableRow key={index}>
+                            <TableCell className="font-mono text-sm">VEX-{item.sku}</TableCell>
+                            <TableCell>{item.name}</TableCell>
+                            <TableCell className={`text-right font-medium ${getStockColor(currentAvailable)}`}>
+                              {currentAvailable}
+                            </TableCell>
+                            <TableCell className="text-right font-medium">{item.quantity}</TableCell>
+                            <TableCell className={`text-right font-medium ${getStockColor(afterApproval)}`}>
+                              {afterApproval}
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       )}
 
@@ -464,11 +423,11 @@ export function Claims({ highlightedClaim, onNavigate }: ClaimsProps) {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
-                    <FileText className="h-5 w-5 text-green-600" />
+                    <Minus className="h-5 w-5 text-red-600" />
                     <div>
-                      <CardTitle className="text-lg">{claim.id}</CardTitle>
+                      <CardTitle className="text-lg">{claim.name}</CardTitle>
                       <CardDescription>
-                        {claim.teamName} • Submitted {new Date(claim.submittedDate).toLocaleDateString()}
+                        {claim.data.teamName} • Submitted {new Date(claim.data.submittedDate).toLocaleDateString()}
                       </CardDescription>
                     </div>
                   </div>
@@ -485,7 +444,7 @@ export function Claims({ highlightedClaim, onNavigate }: ClaimsProps) {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {claim.items.map((item, index) => (
+                    {claim.data.items.map((item, index) => (
                       <TableRow key={index}>
                         <TableCell className="font-mono text-sm">VEX-{item.sku}</TableCell>
                         <TableCell>{item.name}</TableCell>
@@ -502,9 +461,9 @@ export function Claims({ highlightedClaim, onNavigate }: ClaimsProps) {
 
       {claims.length === 0 && (
         <div className="text-center py-12">
-          <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-foreground mb-2">No claims found</h3>
-          <p className="text-muted-foreground">Create a new claim or import from CSV</p>
+          <Minus className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-gray-900 mb-2">No claims found</h3>
+          <p className="text-gray-500">Create a new claim to get started</p>
         </div>
       )}
     </div>

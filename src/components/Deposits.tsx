@@ -1,31 +1,45 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Plus, Upload, Check, X, Trash2, Edit } from "lucide-react";
+import { Plus, Upload, Check, X, Trash2, Edit, Loader2 } from "lucide-react";
 import { 
-  loadDeposits, 
-  saveDeposits, 
+  loadDeposits,
+  createDeposit,
+  modifyDeposit,
+  approveDeposit,
+  deleteDeposit,
   loadWarehouse,
-  saveWarehouse,
   loadVexParts,
   type Deposit,
   type WarehouseData,
   type VexPartsData 
-} from "@/utils/fileSystemManager";
+} from "@/utils/backendService";
+import { useImportCsv } from '../hooks/use-import-csv';
 
 interface DepositsProps {
   highlightedDeposit?: string;
   onNavigate?: (path: string) => void;
+  onWarehouseUpdate?: () => void;
 }
 
-export function Deposits({ highlightedDeposit, onNavigate }: DepositsProps) {
+export function Deposits({ highlightedDeposit, onNavigate, onWarehouseUpdate }: DepositsProps) {
+  const { orgId } = useParams<{ orgId: string }>();
   const [deposits, setDeposits] = useState<Deposit[]>([]);
   const [warehouseData, setWarehouseData] = useState<WarehouseData>({});
   const [vexPartsData, setVexPartsData] = useState<VexPartsData>({});
   const [isLoading, setIsLoading] = useState(true);
+  const [processingDeposits, setProcessingDeposits] = useState<Set<string>>(new Set());
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [editingDeposit, setEditingDeposit] = useState<string | null>(null);
   const [newDepositTeam, setNewDepositTeam] = useState("");
@@ -33,16 +47,21 @@ export function Deposits({ highlightedDeposit, onNavigate }: DepositsProps) {
   const [selectedSku, setSelectedSku] = useState("");
   const [quantity, setQuantity] = useState("");
   const [newDepositItems, setNewDepositItems] = useState<Array<{sku: string, name: string, quantity: number}>>([]);
+  const [csvType, setCsvType] = useState("");
 
   useEffect(() => {
-    loadData();
-  }, []);
+    if (orgId) {
+      loadData();
+    }
+  }, [orgId]);
 
   const loadData = async () => {
+    if (!orgId) return;
+    
     try {
       const [depositsData, warehouse, vexParts] = await Promise.all([
-        loadDeposits(),
-        loadWarehouse(),
+        loadDeposits(orgId),
+        loadWarehouse(orgId),
         loadVexParts()
       ]);
       setDeposits(depositsData);
@@ -55,54 +74,20 @@ export function Deposits({ highlightedDeposit, onNavigate }: DepositsProps) {
     }
   };
 
-  const handleImportCSV = async () => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = '.csv';
-    
-    input.onchange = async (e) => {
-      const file = (e.target as HTMLInputElement).files?.[0];
-      if (!file) return;
-      
-      const text = await file.text();
-      const lines = text.split('\n').filter(line => line.trim());
-      const depositItems: Array<{sku: string, name: string, quantity: number}> = [];
-      
-      // Skip header line, process all data lines
-      for (let i = 1; i < lines.length; i++) {
-        const [sku, qty, team] = lines[i].split(',').map(s => s.trim());
-        if (sku && qty && vexPartsData[sku]) {
-          const part = vexPartsData[sku];
-          depositItems.push({
-            sku,
-            name: part.name,
-            quantity: parseInt(qty) || 1
-          });
-        }
-      }
-      
-      if (depositItems.length > 0) {
-        const today = new Date().toLocaleDateString();
-        const existingImportsToday = deposits.filter(d => 
-          d.teamName && d.teamName.includes(`Imported Deposit ${today}`)
-        ).length;
-        
-        const newDeposit: Deposit = {
-          id: `DEP-${String(deposits.length + 1).padStart(3, '0')}`,
-          teamName: `Imported Deposit ${today} ${existingImportsToday + 1}`,
-          submittedDate: new Date().toISOString().split('T')[0],
-          status: 'pending',
-          items: depositItems
-        };
-        
-        const updatedDeposits = [...deposits, newDeposit];
-        setDeposits(updatedDeposits);
-        await saveDeposits(updatedDeposits);
-      }
-    };
-    
-    input.click();
-  };
+  const importDeposits = useImportCsv<Deposit>({
+    prefix: 'Deposit',
+    list: deposits,
+    setList: setDeposits,
+    saveList: async () => {}, // Not used anymore
+    partData: vexPartsData,
+    csvType: csvType as 'stockv5' | 'onshape' | 'default',
+    createRecord: async (name: string, data: any) => {
+      if (!orgId) throw new Error('No organization ID');
+      await createDeposit(orgId, name, data);
+      // Reload data after creating
+      await loadData();
+    }
+  });
 
   const filteredParts = Object.entries(vexPartsData).filter(([sku, part]) => 
     searchTerm && (
@@ -139,54 +124,47 @@ export function Deposits({ highlightedDeposit, onNavigate }: DepositsProps) {
     }
   };
 
-  const createDeposit = async () => {
-    if (newDepositTeam && newDepositItems.length > 0) {
-      const newDeposit: Deposit = {
-        id: `DEP-${String(deposits.length + 1).padStart(3, '0')}`,
-        teamName: newDepositTeam,
-        submittedDate: new Date().toISOString().split('T')[0],
-        status: 'pending',
-        items: newDepositItems
-      };
-      
-      const updatedDeposits = [...deposits, newDeposit];
-      setDeposits(updatedDeposits);
-      await saveDeposits(updatedDeposits);
-      
-      setShowCreateForm(false);
-      setNewDepositTeam("");
-      setNewDepositItems([]);
-    }
+  const createNewDeposit = async () => {
+    if (!orgId || !newDepositTeam || newDepositItems.length === 0) return;
+
+    const depositData = {
+      teamName: newDepositTeam,
+      submittedDate: new Date().toISOString().split('T')[0],
+      items: newDepositItems
+    };
+
+    await createDeposit(orgId, `Deposit by ${newDepositTeam}`, depositData);
+    
+    setShowCreateForm(false);
+    setNewDepositTeam("");
+    setNewDepositItems([]);
+    loadData();
   };
 
   const startEdit = (depositId: string) => {
     const deposit = deposits.find(d => d.id === depositId);
     if (deposit && deposit.status === 'pending') {
       setEditingDeposit(depositId);
-      setNewDepositTeam(deposit.teamName);
-      setNewDepositItems([...deposit.items]);
+      setNewDepositTeam(deposit.data.teamName);
+      setNewDepositItems([...deposit.data.items]);
     }
   };
 
   const saveEdit = async () => {
-    if (editingDeposit && newDepositTeam && newDepositItems.length > 0) {
-      const updatedDeposits = deposits.map(deposit => 
-        deposit.id === editingDeposit 
-          ? {
-              ...deposit,
-              teamName: newDepositTeam,
-              items: newDepositItems
-            }
-          : deposit
-      );
-      
-      setDeposits(updatedDeposits);
-      await saveDeposits(updatedDeposits);
-      
-      setEditingDeposit(null);
-      setNewDepositTeam("");
-      setNewDepositItems([]);
-    }
+    if (!orgId || !editingDeposit || !newDepositTeam || newDepositItems.length === 0) return;
+
+    const depositData = {
+      teamName: newDepositTeam,
+      submittedDate: new Date().toISOString().split('T')[0],
+      items: newDepositItems
+    };
+
+    await modifyDeposit(orgId, editingDeposit, depositData);
+    
+    setEditingDeposit(null);
+    setNewDepositTeam("");
+    setNewDepositItems([]);
+    loadData();
   };
 
   const cancelEdit = () => {
@@ -196,40 +174,45 @@ export function Deposits({ highlightedDeposit, onNavigate }: DepositsProps) {
   };
 
   const handleApproveDeposit = async (depositId: string) => {
-    const deposit = deposits.find(d => d.id === depositId);
-    if (!deposit) return;
+    if (!orgId || processingDeposits.has(depositId)) return;
 
-    const updatedWarehouse = { ...warehouseData };
-    deposit.items.forEach(item => {
-      if (updatedWarehouse[item.sku]) {
-        updatedWarehouse[item.sku].inventoryStock += item.quantity;
-      } else {
-        const vexPart = vexPartsData[item.sku];
-        if (vexPart) {
-          updatedWarehouse[item.sku] = {
-            ...vexPart,
-            inventoryStock: item.quantity
-          };
-        }
+    setProcessingDeposits(prev => new Set(prev).add(depositId));
+
+    try {
+      await approveDeposit(orgId, depositId);
+      await loadData();
+      // Notify parent component that warehouse was updated
+      if (onWarehouseUpdate) {
+        onWarehouseUpdate();
       }
-    });
-
-    const updatedDeposits = deposits.map(d => 
-      d.id === depositId ? { ...d, status: 'approved' as const } : d
-    );
-
-    setWarehouseData(updatedWarehouse);
-    setDeposits(updatedDeposits);
-    await Promise.all([
-      saveWarehouse(updatedWarehouse),
-      saveDeposits(updatedDeposits)
-    ]);
+    } catch (error) {
+      console.error('Failed to approve deposit:', error);
+    } finally {
+      setProcessingDeposits(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(depositId);
+        return newSet;
+      });
+    }
   };
 
   const handleReject = async (depositId: string) => {
-    const updatedDeposits = deposits.filter(d => d.id !== depositId);
-    setDeposits(updatedDeposits);
-    await saveDeposits(updatedDeposits);
+    if (!orgId || processingDeposits.has(depositId)) return;
+
+    setProcessingDeposits(prev => new Set(prev).add(depositId));
+
+    try {
+      await deleteDeposit(orgId, depositId);
+      await loadData();
+    } catch (error) {
+      console.error('Failed to reject deposit:', error);
+    } finally {
+      setProcessingDeposits(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(depositId);
+        return newSet;
+      });
+    }
   };
 
   const getStockColor = (stock: number) => {
@@ -253,7 +236,16 @@ export function Deposits({ highlightedDeposit, onNavigate }: DepositsProps) {
           <p className="text-gray-600">Process returned parts and inventory additions</p>
         </div>
         <div className="flex space-x-2">
-          <Button variant="outline" onClick={handleImportCSV}>
+          <Select value={csvType} onValueChange={setCsvType}>
+            <SelectTrigger>
+              <SelectValue placeholder="Choose a CSV Type" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="stockv5">StockV5</SelectItem>
+              <SelectItem value="onshape">Onshape</SelectItem>
+            </SelectContent>
+          </Select>
+          <Button variant="outline" onClick={importDeposits}>
             <Upload className="h-4 w-4 mr-2" />
             Import Deposits CSV
           </Button>
@@ -340,7 +332,7 @@ export function Deposits({ highlightedDeposit, onNavigate }: DepositsProps) {
 
             <div className="flex space-x-2">
               <Button 
-                onClick={editingDeposit ? saveEdit : createDeposit} 
+                onClick={editingDeposit ? saveEdit : createNewDeposit} 
                 disabled={!newDepositTeam || newDepositItems.length === 0}
               >
                 {editingDeposit ? 'Save Changes' : 'Create Deposit'}
@@ -360,84 +352,97 @@ export function Deposits({ highlightedDeposit, onNavigate }: DepositsProps) {
       {pendingDeposits.length > 0 && (
         <div className="space-y-4">
           <h3 className="text-xl font-semibold">Pending Deposits</h3>
-          {pendingDeposits.map((deposit) => (
-            <Card key={deposit.id} className={highlightedDeposit === deposit.id ? "ring-2 ring-blue-500" : ""}>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <Plus className="h-5 w-5 text-green-600" />
-                    <div>
-                      <CardTitle className="text-lg">{deposit.id}</CardTitle>
-                      <CardDescription>
-                        {deposit.teamName} • Submitted {new Date(deposit.submittedDate).toLocaleDateString()}
-                      </CardDescription>
+          {pendingDeposits.map((deposit) => {
+            const isProcessing = processingDeposits.has(deposit.id);
+            return (
+              <Card key={deposit.id} className={highlightedDeposit === deposit.id ? "ring-2 ring-blue-500" : ""}>
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <Plus className="h-5 w-5 text-green-600" />
+                      <div>
+                        <CardTitle className="text-lg">{deposit.name}</CardTitle>
+                        <CardDescription>
+                          {deposit.data.teamName} • Submitted {new Date(deposit.data.submittedDate).toLocaleDateString()}
+                        </CardDescription>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <Badge variant="secondary">Pending</Badge>
+                      <div className="flex space-x-2">
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          onClick={() => startEdit(deposit.id)}
+                          disabled={editingDeposit === deposit.id || isProcessing}
+                        >
+                          <Edit className="h-4 w-4 mr-1" />
+                          Edit
+                        </Button>
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          onClick={() => handleReject(deposit.id)}
+                          disabled={isProcessing}
+                        >
+                          {isProcessing ? (
+                            <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                          ) : (
+                            <X className="h-4 w-4 mr-1" />
+                          )}
+                          Reject
+                        </Button>
+                        <Button 
+                          size="sm"
+                          onClick={() => handleApproveDeposit(deposit.id)}
+                          disabled={isProcessing}
+                        >
+                          {isProcessing ? (
+                            <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                          ) : (
+                            <Check className="h-4 w-4 mr-1" />
+                          )}
+                          Process
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-3">
-                    <Badge variant="secondary">Pending</Badge>
-                    <div className="flex space-x-2">
-                      <Button 
-                        size="sm" 
-                        variant="outline"
-                        onClick={() => startEdit(deposit.id)}
-                        disabled={editingDeposit === deposit.id}
-                      >
-                        <Edit className="h-4 w-4 mr-1" />
-                        Edit
-                      </Button>
-                      <Button 
-                        size="sm" 
-                        variant="outline"
-                        onClick={() => handleReject(deposit.id)}
-                      >
-                        <X className="h-4 w-4 mr-1" />
-                        Reject
-                      </Button>
-                      <Button 
-                        size="sm"
-                        onClick={() => handleApproveDeposit(deposit.id)}
-                      >
-                        <Check className="h-4 w-4 mr-1" />
-                        Process
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>SKU</TableHead>
-                      <TableHead>Part Name</TableHead>
-                      <TableHead className="text-right">Current Stock</TableHead>
-                      <TableHead className="text-right">Deposit Quantity</TableHead>
-                      <TableHead className="text-right">After Processing</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {deposit.items.map((item, index) => {
-                      const currentAvailable = warehouseData[item.sku]?.inventoryStock || 0;
-                      const afterProcessing = currentAvailable + item.quantity;
-                      return (
-                        <TableRow key={index}>
-                          <TableCell className="font-mono text-sm">VEX-{item.sku}</TableCell>
-                          <TableCell>{item.name}</TableCell>
-                          <TableCell className={`text-right font-medium ${getStockColor(currentAvailable)}`}>
-                            {currentAvailable}
-                          </TableCell>
-                          <TableCell className="text-right font-medium text-green-600">+{item.quantity}</TableCell>
-                          <TableCell className={`text-right font-medium ${getStockColor(afterProcessing)}`}>
-                            {afterProcessing}
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-          ))}
+                </CardHeader>
+                <CardContent>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>SKU</TableHead>
+                        <TableHead>Part Name</TableHead>
+                        <TableHead className="text-right">Current Stock</TableHead>
+                        <TableHead className="text-right">Deposit Quantity</TableHead>
+                        <TableHead className="text-right">After Processing</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {deposit.data.items.map((item, index) => {
+                        const currentAvailable = warehouseData[item.sku]?.inventoryStock || 0;
+                        const afterProcessing = currentAvailable + item.quantity;
+                        return (
+                          <TableRow key={index}>
+                            <TableCell className="font-mono text-sm">VEX-{item.sku}</TableCell>
+                            <TableCell>{item.name}</TableCell>
+                            <TableCell className={`text-right font-medium ${getStockColor(currentAvailable)}`}>
+                              {currentAvailable}
+                            </TableCell>
+                            <TableCell className="text-right font-medium text-green-600">+{item.quantity}</TableCell>
+                            <TableCell className={`text-right font-medium ${getStockColor(afterProcessing)}`}>
+                              {afterProcessing}
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       )}
 
@@ -452,9 +457,9 @@ export function Deposits({ highlightedDeposit, onNavigate }: DepositsProps) {
                   <div className="flex items-center space-x-3">
                     <Plus className="h-5 w-5 text-green-600" />
                     <div>
-                      <CardTitle className="text-lg">{deposit.id}</CardTitle>
+                      <CardTitle className="text-lg">{deposit.name}</CardTitle>
                       <CardDescription>
-                        {deposit.teamName} • Submitted {new Date(deposit.submittedDate).toLocaleDateString()}
+                        {deposit.data.teamName} • Submitted {new Date(deposit.data.submittedDate).toLocaleDateString()}
                       </CardDescription>
                     </div>
                   </div>
@@ -471,7 +476,7 @@ export function Deposits({ highlightedDeposit, onNavigate }: DepositsProps) {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {deposit.items.map((item, index) => (
+                    {deposit.data.items.map((item, index) => (
                       <TableRow key={index}>
                         <TableCell className="font-mono text-sm">VEX-{item.sku}</TableCell>
                         <TableCell>{item.name}</TableCell>

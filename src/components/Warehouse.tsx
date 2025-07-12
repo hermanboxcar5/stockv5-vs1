@@ -1,62 +1,112 @@
 
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Search, Plus, Upload, ExternalLink, Trash2, Package } from "lucide-react";
+import { Search, Plus, ExternalLink, Package, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/components/ui/use-toast";
 import { 
   loadWarehouse, 
-  saveWarehouse, 
   loadVexParts,
+  addItemToWarehouse,
+  removeItemFromWarehouse,
   type WarehouseData,
   type VexPartsData 
-} from "@/utils/fileSystemManager";
+} from "@/utils/backendService";
 import { AddPartsDialog } from "./AddPartsDialog";
 
 export function Warehouse() {
+  const { orgId } = useParams<{ orgId: string }>();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState("all");
   const [warehouseData, setWarehouseData] = useState<WarehouseData>({});
   const [vexPartsData, setVexPartsData] = useState<VexPartsData>({});
   const [isLoading, setIsLoading] = useState(true);
   const [showAddPartsDialog, setShowAddPartsDialog] = useState(false);
+  const [processingItems, setProcessingItems] = useState<Set<string>>(new Set());
+  const { toast } = useToast();
 
   useEffect(() => {
-    loadData();
-  }, []);
+    if (orgId) {
+      loadData();
+    }
+  }, [orgId]);
 
   const loadData = async () => {
+    if (!orgId) return;
+    
     try {
       const [warehouse, vexParts] = await Promise.all([
-        loadWarehouse(),
+        loadWarehouse(orgId),
         loadVexParts()
       ]);
       setWarehouseData(warehouse);
       setVexPartsData(vexParts);
     } catch (error) {
       console.error('Failed to load data:', error);
+      toast({
+        title: "Error",
+        description: "Failed to load warehouse data",
+        variant: "destructive"
+      });
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleAddParts = async (parts: Array<{sku: string}>) => {
-    const updatedWarehouse = { ...warehouseData };
-    
-    parts.forEach(part => {
-      const vexPart = vexPartsData[part.sku];
-      if (vexPart && !updatedWarehouse[part.sku]) {
-        updatedWarehouse[part.sku] = {
-          ...vexPart,
-          inventoryStock: 0
-        };
-      }
-    });
+  const handleAddParts = async (parts: Array<{sku: string; quantity?: number}>) => {
+    if (!orgId) return;
 
-    setWarehouseData(updatedWarehouse);
-    await saveWarehouse(updatedWarehouse);
+    try {
+      for (const part of parts) {
+        const quantity = part.quantity || 1;
+        await addItemToWarehouse(orgId, part.sku, quantity);
+      }
+      
+      await loadData();
+      toast({
+        title: "Success",
+        description: `Added ${parts.length} part(s) to warehouse`
+      });
+    } catch (error) {
+      console.error('Failed to add parts:', error);
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to add parts",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const handleRemoveItem = async (sku: string) => {
+    if (!orgId) return;
+
+    setProcessingItems(prev => new Set(prev).add(sku));
+    
+    try {
+      await removeItemFromWarehouse(orgId, sku);
+      await loadData();
+      toast({
+        title: "Success",
+        description: "Item removed from warehouse"
+      });
+    } catch (error) {
+      console.error('Failed to remove item:', error);
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to remove item",
+        variant: "destructive"
+      });
+    } finally {
+      setProcessingItems(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(sku);
+        return newSet;
+      });
+    }
   };
 
   const filteredItems = Object.entries(warehouseData).filter(([sku, item]) => {
@@ -80,16 +130,6 @@ export function Warehouse() {
     }
   };
 
-  const handleDeleteItem = async (sku: string) => {
-    const item = warehouseData[sku];
-    if (item && item.inventoryStock === 0) {
-      const updatedWarehouse = { ...warehouseData };
-      delete updatedWarehouse[sku];
-      setWarehouseData(updatedWarehouse);
-      await saveWarehouse(updatedWarehouse);
-    }
-  };
-
   const types = [...new Set(Object.values(warehouseData).map(item => item.type || "none"))];
 
   if (isLoading) {
@@ -105,10 +145,9 @@ export function Warehouse() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-foreground">Warehouse</h2>
-          <p className="text-muted-foreground">View all part quantities</p>
+          <p className="text-muted-foreground">Manage your part inventory</p>
         </div>
         <div className="flex space-x-2">
-
           <Button onClick={() => setShowAddPartsDialog(true)}>
             <Plus className="h-4 w-4 mr-2" />
             Add Parts
@@ -143,22 +182,24 @@ export function Warehouse() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {filteredItems.map(([sku, item]) => {
           const status = getStockStatus(item.inventoryStock);
-          const canDelete = item.inventoryStock === 0;
+          const canRemove = item.inventoryStock === 0;
+          const isProcessing = processingItems.has(sku);
           
           return (
             <Card key={sku} className={cn("relative", getStockColor(status))}>
               <CardHeader className="pb-2">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <CardTitle className="text-lg font-bold font-mono">VEX-{sku}</CardTitle>
-                    <CardDescription className="text-sm line-clamp-2">{item.name}</CardDescription>
+                    <CardTitle className="text-lg font-bold">{item.name}</CardTitle>
+                    <CardDescription className="text-sm line-clamp-2 font-mono">VEX-{sku}</CardDescription>
                   </div>
-                  {canDelete && (
-                    <Button 
-                      variant="ghost" 
-                      size="sm" 
-                      className="h-8 w-8 p-0 text-muted-foreground hover:text-red-500"
-                      onClick={() => handleDeleteItem(sku)}
+                  {canRemove && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-8 w-8 p-0 text-destructive hover:text-destructive"
+                      onClick={() => handleRemoveItem(sku)}
+                      disabled={isProcessing}
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
