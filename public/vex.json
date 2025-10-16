@@ -328,7 +328,7 @@
     "type": null
   },
   "217-2591": {
-    "name": "1.125” Bearing Bore Plastic VersaHub Spacer (1/2” Wide)",
+    "name": "1.125\u201d Bearing Bore Plastic VersaHub Spacer (1/2\u201d Wide)",
     "price": "$2.99",
     "url": "https://www.vexrobotics.com/vrc-flex-wheels.html",
     "stock": true,
@@ -336,7 +336,7 @@
     "type": null
   },
   "217-2592": {
-    "name": "1/2” Hex Bore Aluminum VersaHub",
+    "name": "1/2\u201d Hex Bore Aluminum VersaHub",
     "price": "$8.99",
     "url": "https://www.vexrobotics.com/vrc-flex-wheels.html",
     "stock": true,
@@ -680,7 +680,7 @@
     "type": null
   },
   "276-8638": {
-    "name": "VEX “T” Pneumatic Fittings (5-pack)",
+    "name": "VEX \u201cT\u201d Pneumatic Fittings (5-pack)",
     "price": "$15.49",
     "url": "https://www.vexrobotics.com/spare-pneumatics.html",
     "stock": true,
@@ -2376,7 +2376,7 @@
     "type": null
   },
   "276-9044": {
-    "name": "2” Omni-Directional Wheel (4-Pack)",
+    "name": "2\u201d Omni-Directional Wheel (4-Pack)",
     "price": "$23.59",
     "url": "https://www.vexrobotics.com/wheels.html",
     "stock": true,
@@ -2448,7 +2448,7 @@
     "type": null
   },
   "276-9041": {
-    "name": "2” Mecanum Wheels v2 (4-Pack) ",
+    "name": "2\u201d Mecanum Wheels v2 (4-Pack) ",
     "price": "$48.39",
     "url": "https://www.vexrobotics.com/wheels.html",
     "stock": true,
@@ -2682,6 +2682,1542 @@
   "276-2174": {
     "name": "Limit Switch (2-pack)",
     "price": "$15.49",
+    "url": "https://www.vexrobotics.com/276-2174.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-2174_limitswitch_lqc_rev1.jpg",
+    "type": null
+  },
+  "276-7285-001": {
+    "name": "2x2x2x20 Aluminum U-Channel",
+    "price": "$7.17",
+    "url": "https://www.vexrobotics.com/276-7285.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-7285_1.jpg",
+    "type": null
+  },
+  "276-4858-001": {
+    "name": "Bumper Switch v2",
+    "price": "$7.75",
+    "url": "https://www.vexrobotics.com/276-4858.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-4858_bumperswitchv2_lqc_rev1.jpg",
+    "type": null
+  },
+  "276-2154-001": {
+    "name": "Line Tracker",
+    "price": "$15.80",
+    "url": "https://www.vexrobotics.com/276-2154.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-2154-000_objectsensor_3ql_rev1.jpg",
+    "type": null
+  },
+  "276-8794-001": {
+    "name": "V5 Flywheel Weight",
+    "price": "$10.79",
+    "url": "https://www.vexrobotics.com/276-8794.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-8794_flywheel_side_vs01_07052022.jpg",
+    "type": null
+  },
+  "276-7740-001": {
+    "name": "V5 Competition Field Controller Cables",
+    "price": "$6.70",
+    "url": "https://www.vexrobotics.com/276-7740.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-7740_1.jpg",
+    "type": null
+  },
+  "275-1013-001": {
+    "name": "1/4\" Standoff",
+    "price": "$0.36",
+    "url": "https://www.vexrobotics.com/standoffs-8-32.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/b/e/beam-0250-pack-10_1.jpg",
+    "type": null
+  },
+  "275-1014-001": {
+    "name": "1/2\" Standoff",
+    "price": "$0.36",
+    "url": "https://www.vexrobotics.com/standoffs-8-32.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/b/e/beam-0500-pack-10_1.jpg",
+    "type": null
+  },
+  "275-1015-001": {
+    "name": "3/4\" Standoff",
+    "price": "$0.47",
+    "url": "https://www.vexrobotics.com/standoffs-8-32.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/b/e/beam-0750-pack-10_1.jpg",
+    "type": null
+  },
+  "275-1016-001": {
+    "name": "1.00\" Standoff",
+    "price": "$0.47",
+    "url": "https://www.vexrobotics.com/standoffs-8-32.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/b/e/beam-1000-pack-10_1.jpg",
+    "type": null
+  },
+  "275-1017-001": {
+    "name": "1.50\" Standoff",
+    "price": "$0.97",
+    "url": "https://www.vexrobotics.com/standoffs-8-32.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/b/e/beam-1500-pack-10_1.jpg",
+    "type": null
+  },
+  "275-1018-001": {
+    "name": "2.00\" Standoff",
+    "price": "$0.97",
+    "url": "https://www.vexrobotics.com/standoffs-8-32.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/b/e/beam-2000-pack-10_1.jpg",
+    "type": null
+  },
+  "275-1019-001": {
+    "name": "2.50\" Standoff",
+    "price": "$1.75",
+    "url": "https://www.vexrobotics.com/standoffs-8-32.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/b/e/beam-2500-pack-10_1.jpg",
+    "type": null
+  },
+  "275-1020-001": {
+    "name": "3.00\" Standoff",
+    "price": "$2.15",
+    "url": "https://www.vexrobotics.com/standoffs-8-32.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/b/e/beam-3000-pack-10_1.jpg",
+    "type": null
+  },
+  "275-1021-001": {
+    "name": "4.00\" Standoff",
+    "price": "$2.42",
+    "url": "https://www.vexrobotics.com/standoffs-8-32.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/b/e/beam-4000-pack-10_1.jpg",
+    "type": null
+  },
+  "275-1022-001": {
+    "name": "5.00\" Standoff",
+    "price": "$2.72",
+    "url": "https://www.vexrobotics.com/standoffs-8-32.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/b/e/beam-5000-pack-10_1.jpg",
+    "type": null
+  },
+  "275-1023-001": {
+    "name": "6.00\" Standoff",
+    "price": "$2.97",
+    "url": "https://www.vexrobotics.com/standoffs-8-32.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/b/e/beam-6000-pack-10_1.jpg",
+    "type": null
+  },
+  "217-7947-001": {
+    "name": "1/2\" VersaHex Adapters v2",
+    "price": "$0.62",
+    "url": "https://www.vexrobotics.com/vrc-flex-wheels.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/1/217-7947.jpg",
+    "type": null
+  },
+  "217-8004-001": {
+    "name": "Plastic 1/2\" VersaHex Adapters v2",
+    "price": "$0.10",
+    "url": "https://www.vexrobotics.com/vrc-flex-wheels.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/1/217-8004-1.jpg",
+    "type": null
+  },
+  "276-4990-001": {
+    "name": "#8-32 x 1/4\" Star Drive Screw",
+    "price": "$0.06",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "276-5006-001": {
+    "name": "#8-32 x 1/4\" Locking Star Drive Screw",
+    "price": "$0.12",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "276-4991-001": {
+    "name": "#8-32 x 3/8\" Star Drive Screw",
+    "price": "$0.06",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "276-4992-001": {
+    "name": "#8-32 x 1/2\" Star Drive Screw",
+    "price": "$0.06",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "276-5007-001": {
+    "name": "#8-32 x 1/2\" Locking Star Drive Screw",
+    "price": "$0.12",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "276-4993-001": {
+    "name": "#8-32 x 5/8\" Star Drive Screw",
+    "price": "$0.07",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "276-4994-001": {
+    "name": "#8-32 x 3/4\" Star Drive Screw",
+    "price": "$0.07",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "276-4995-001": {
+    "name": "#8-32 x 7/8\" Star Drive Screw",
+    "price": "$0.09",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "276-4996-001": {
+    "name": "#8-32 x 1.000\" Star Drive Screw",
+    "price": "$0.09",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "276-4997-001": {
+    "name": "#8-32 x 1.250\" Star Drive Screw",
+    "price": "$0.12",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "276-4998-001": {
+    "name": "#8-32 x 1.500\" Star Drive Screw",
+    "price": "$0.12",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "276-4999-001": {
+    "name": "#8-32 x 1.750\" Star Drive Screw",
+    "price": "$0.14",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "276-5004-001": {
+    "name": "#8-32 x 2.000\" Star Drive Screw",
+    "price": "$0.25",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "276-8015-001": {
+    "name": "#8-32 x 2.250\" Star Drive Screw",
+    "price": "$0.24",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "276-8016-001": {
+    "name": "#8-32 x 2.500\" Star Drive Screw",
+    "price": "$0.24",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "275-1002-001": {
+    "name": "#8-32 x 1/4\" Screw",
+    "price": "$0.09",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "275-1260-001": {
+    "name": "#8-32 x 1/4\" Locking Screw",
+    "price": "$0.24",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "275-1003-001": {
+    "name": "#8-32 x 3/8\" Screw",
+    "price": "$0.09",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": false,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "275-1004-001": {
+    "name": "#8-32 x 1/2\" Screw",
+    "price": "$0.09",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "275-1261-001": {
+    "name": "#8-32 x 1/2\" Locking Screw",
+    "price": "$0.24",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "275-1005-001": {
+    "name": "#8-32 x 5/8\" Screw",
+    "price": "$0.12",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "275-1007-001": {
+    "name": "#8-32 x 7/8\" Screw",
+    "price": "$0.12",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "275-1008-001": {
+    "name": "#8-32 x 1.000\" Screw",
+    "price": "$0.12",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "275-1009-001": {
+    "name": "#8-32 x 1.250\" Screw",
+    "price": "$0.18",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "275-1011-001": {
+    "name": "#8-32 x 1.750\" Screw",
+    "price": "$0.24",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "275-1012-001": {
+    "name": "#8-32 x 2.000\" Screw",
+    "price": "$0.36",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "275-1485-001": {
+    "name": "1/2\" Thumbscrew",
+    "price": "$0.24",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": false,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/t/h/thumbscrew_1_2_1.jpg",
+    "type": null
+  },
+  "276-1408-001": {
+    "name": "#8-32 Shoulder Screws",
+    "price": "$0.46",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/f/i/file_62_1_2_1.jpg",
+    "type": null
+  },
+  "275-0659-001": {
+    "name": "#6-32 x 1/4\" Screw",
+    "price": "$0.12",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": false,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "275-1169-001": {
+    "name": "#6-32 x 1/2\" Screw",
+    "price": "$0.12",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "276-1958-001": {
+    "name": "#6-32 x 1/2\" Locking Screw",
+    "price": "$0.12",
+    "url": "https://www.vexrobotics.com/all-screws.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/f/i/file_61_1_2_1.jpg",
+    "type": null
+  },
+  "275-1142-001": {
+    "name": "2x2x25 Steel Angle",
+    "price": "$4.62",
+    "url": "https://www.vexrobotics.com/angles.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/275-1142_2_1.jpg",
+    "type": null
+  },
+  "275-1143-001": {
+    "name": "2x2x35 Steel Angle",
+    "price": "$5.40",
+    "url": "https://www.vexrobotics.com/angles.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/275-1143_1_1.jpg",
+    "type": null
+  },
+  "275-1144-001": {
+    "name": "3x3x35 Steel Angle",
+    "price": "$5.90",
+    "url": "https://www.vexrobotics.com/angles.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/275-1144_1_1.jpg",
+    "type": null
+  },
+  "276-8638-001": {
+    "name": "VEX \u201cT\u201d Pneumatic Fittings",
+    "price": "$3.10",
+    "url": "https://www.vexrobotics.com/spare-pneumatics.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/i/m/image_25_.png",
+    "type": null
+  },
+  "276-8637-001": {
+    "name": "Elbow Fitting Kit",
+    "price": "$1.61",
+    "url": "https://www.vexrobotics.com/spare-pneumatics.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-8637_vex_v5_pneumatics90degreeelbowfitting8pack_group_render_rev_01.jpg",
+    "type": null
+  },
+  "276-8636-001": {
+    "name": "Straight Pneumatic Fitting Kit",
+    "price": "$1.14",
+    "url": "https://www.vexrobotics.com/spare-pneumatics.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/i/m/image_2_.png",
+    "type": null
+  },
+  "276-8020-001": {
+    "name": "1-Post Standoff Retainer",
+    "price": "$0.60",
+    "url": "https://www.vexrobotics.com/standoff-retainers.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-8020.jpg",
+    "type": null
+  },
+  "276-8021-001": {
+    "name": "1-Post Standoff Retainer with Bearing Flat",
+    "price": "$0.60",
+    "url": "https://www.vexrobotics.com/standoff-retainers.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-8021.jpg",
+    "type": null
+  },
+  "276-8022-001": {
+    "name": "4-Post Standoff Retainer",
+    "price": "$0.60",
+    "url": "https://www.vexrobotics.com/standoff-retainers.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-8022.jpg",
+    "type": null
+  },
+  "276-8030-001": {
+    "name": "8T Sprocket, 6P",
+    "price": "$2.70",
+    "url": "https://www.vexrobotics.com/v5-sprockets.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-8030.jpg",
+    "type": null
+  },
+  "276-8328-001": {
+    "name": "16T Sprocket, 6P",
+    "price": "$3.35",
+    "url": "https://www.vexrobotics.com/v5-sprockets.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-8328.jpg",
+    "type": null
+  },
+  "276-8329-001": {
+    "name": "24T Sprocket, 6P",
+    "price": "$3.35",
+    "url": "https://www.vexrobotics.com/v5-sprockets.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-8329.jpg",
+    "type": null
+  },
+  "276-8330-001": {
+    "name": "32T Sprocket, 6P",
+    "price": "$6.70",
+    "url": "https://www.vexrobotics.com/v5-sprockets.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-8330.jpg",
+    "type": null
+  },
+  "276-8331-001": {
+    "name": "40T Sprocket, 6P",
+    "price": "$6.70",
+    "url": "https://www.vexrobotics.com/v5-sprockets.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-8331.jpg",
+    "type": null
+  },
+  "276-3876-001": {
+    "name": "6T High Strength Sprocket",
+    "price": "$1.94",
+    "url": "https://www.vexrobotics.com/v5-sprockets.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-3876-composite.jpg",
+    "type": null
+  },
+  "276-3877-001": {
+    "name": "12T High Strength Sprocket",
+    "price": "$3.87",
+    "url": "https://www.vexrobotics.com/v5-sprockets.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-3877.jpg",
+    "type": null
+  },
+  "276-3878-001": {
+    "name": "18T High Strength Sprocket",
+    "price": "$3.87",
+    "url": "https://www.vexrobotics.com/v5-sprockets.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-3878-composite.jpg",
+    "type": null
+  },
+  "276-3879-001": {
+    "name": "24T High Strength Sprocket",
+    "price": "$3.87",
+    "url": "https://www.vexrobotics.com/v5-sprockets.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-3879_1.jpg",
+    "type": null
+  },
+  "276-3880-001": {
+    "name": "30T High Strength Sprocket",
+    "price": "$3.87",
+    "url": "https://www.vexrobotics.com/v5-sprockets.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-3880_1.jpg",
+    "type": null
+  },
+  "275-1025-001": {
+    "name": "Teflon Washer",
+    "price": "$0.24",
+    "url": "https://www.vexrobotics.com/spacers-washers.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/275-1024-washer-teflon-a_2_2_1.jpg",
+    "type": null
+  },
+  "276-2019-001": {
+    "name": "8mm Plastic Spacer",
+    "price": "$0.17",
+    "url": "https://www.vexrobotics.com/spacers-washers.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/s/p/spacer-thick-a.jpg",
+    "type": null
+  },
+  "275-1024-001": {
+    "name": "Steel Washer",
+    "price": "$0.03",
+    "url": "https://www.vexrobotics.com/spacers-washers.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/275-1024-washer-steel.jpg",
+    "type": null
+  },
+  "276-1209-001": {
+    "name": "Bearing Flat",
+    "price": "$0.60",
+    "url": "https://www.vexrobotics.com/v5-bearings.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/b/e/bearing-flat.jpg",
+    "type": null
+  },
+  "276-8023-001": {
+    "name": "Low Profile Bearing Flat",
+    "price": "$0.60",
+    "url": "https://www.vexrobotics.com/v5-bearings.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-8023.jpg",
+    "type": null
+  },
+  "276-8024-001": {
+    "name": "Shaft Collar Retainer with Bearing Flat",
+    "price": "$0.60",
+    "url": "https://www.vexrobotics.com/v5-bearings.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-8024.jpg",
+    "type": null
+  },
+  "276-7580-001": {
+    "name": "Low Profile High Strength Clamping Shaft Collar",
+    "price": "$2.16",
+    "url": "https://www.vexrobotics.com/hs-shaft-collars.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-7590_3qtr.jpg",
+    "type": null
+  },
+  "276-6102-001": {
+    "name": "High Strength Star Drive Clamping Shaft Collar",
+    "price": "$1.19",
+    "url": "https://www.vexrobotics.com/hs-shaft-collars.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/e/3/e33a8271.jpg",
+    "type": null
+  },
+  "276-6103-001": {
+    "name": "Star Drive Shaft Collar",
+    "price": "$0.61",
+    "url": "https://www.vexrobotics.com/v5-shaft-collars.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-6103-1.jpg",
+    "type": null
+  },
+  "276-6101-001": {
+    "name": "Star Drive Clamping Shaft Collar",
+    "price": "$0.60",
+    "url": "https://www.vexrobotics.com/v5-shaft-collars.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/e/3/e33a8268.jpg",
+    "type": null
+  },
+  "228-3510-001": {
+    "name": "Rubber Shaft Collar",
+    "price": "$0.26",
+    "url": "https://www.vexrobotics.com/v5-shaft-collars.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/2/228_3510_rubber_shaft_collar_30_pack_left_render_07192022.jpg",
+    "type": null
+  },
+  "276-6098-001": {
+    "name": "#8-32 x 0.125\" Star Drive Set Screw",
+    "price": "$0.19",
+    "url": "https://www.vexrobotics.com/v5-shaft-collars.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-6098.jpg",
+    "type": null
+  },
+  "276-6481-001": {
+    "name": "1-Post Hex Nut Retainer w/ Bearing Flat",
+    "price": "$0.60",
+    "url": "https://www.vexrobotics.com/nut-retainers.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/e/3/e33a0747-2_1.jpg",
+    "type": null
+  },
+  "276-6482-001": {
+    "name": "1-Post Hex Nut Retainer",
+    "price": "$0.60",
+    "url": "https://www.vexrobotics.com/nut-retainers.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/e/3/e33a0731-2_1.jpg",
+    "type": null
+  },
+  "276-6483-001": {
+    "name": "4-Post Hex Nut Retainer",
+    "price": "$0.60",
+    "url": "https://www.vexrobotics.com/nut-retainers.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/e/3/e33a0741-2_1.jpg",
+    "type": null
+  },
+  "276-5775-001": {
+    "name": "Smart Cable Connectors",
+    "price": "$0.08",
+    "url": "https://www.vexrobotics.com/v5-smart-cables.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/e/3/e33a9658.jpg",
+    "type": null
+  },
+  "276-1433-001": {
+    "name": "2-Wire Extension Cable 6\"",
+    "price": "$1.50",
+    "url": "https://www.vexrobotics.com/extension-cables.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-1433---2-wire-extension-cable-6_.jpg",
+    "type": null
+  },
+  "276-1432-001": {
+    "name": "2-Wire Extension Cable 12\"",
+    "price": "$2.42",
+    "url": "https://www.vexrobotics.com/extension-cables.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-1432--2--wire-extension-cable-12_.jpg",
+    "type": null
+  },
+  "276-1431-001": {
+    "name": "2-Wire Extension Cable 24\"",
+    "price": "$2.42",
+    "url": "https://www.vexrobotics.com/extension-cables.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-1431--2-wire-extension-cable-24__1.jpg",
+    "type": null
+  },
+  "276-1430-001": {
+    "name": "2-Wire Extension Cable 36\"",
+    "price": "$2.42",
+    "url": "https://www.vexrobotics.com/extension-cables.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-1430--2-wire-extension-cable-36__1.jpg",
+    "type": null
+  },
+  "276-1427-001": {
+    "name": "3-Wire Extension Cable 6\"",
+    "price": "$1.50",
+    "url": "https://www.vexrobotics.com/extension-cables.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "276-1426-001": {
+    "name": "3-Wire Extension Cable 12\"",
+    "price": "$2.42",
+    "url": "https://www.vexrobotics.com/extension-cables.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "276-1976-001": {
+    "name": "3-Wire Extension Cable 36\"",
+    "price": "$2.42",
+    "url": "https://www.vexrobotics.com/extension-cables.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "276-1423-001": {
+    "name": "3-Wire \"Y\"-Cable 6\"",
+    "price": "$3.00",
+    "url": "https://www.vexrobotics.com/extension-cables.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-1423.jpg",
+    "type": null
+  },
+  "276-1949-001": {
+    "name": "4-Wire Extension Cable 12\"",
+    "price": "$5.90",
+    "url": "https://www.vexrobotics.com/extension-cables.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/f/i/file_55_3_2.jpg",
+    "type": null
+  },
+  "276-2395-001": {
+    "name": "F-F 3-Wire Adapter Cable 12\"",
+    "price": "$5.90",
+    "url": "https://www.vexrobotics.com/extension-cables.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/f/i/file_57_1_2.jpg",
+    "type": null
+  },
+  "276-2251-001": {
+    "name": "12T High Strength Metal Pinion",
+    "price": "$1.97",
+    "url": "https://www.vexrobotics.com/gears.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/c/o/composite-2_2.jpg",
+    "type": null
+  },
+  "276-7572-001": {
+    "name": "24T High Strength Gear V2",
+    "price": "$2.31",
+    "url": "https://www.vexrobotics.com/gears.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-7572.jpg",
+    "type": null
+  },
+  "276-7747-001": {
+    "name": "36T High Strength Gear v2",
+    "price": "$2.31",
+    "url": "https://www.vexrobotics.com/gears.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/1/217-7747.jpg",
+    "type": null
+  },
+  "276-7573-001": {
+    "name": "48T High Strength Gear v2",
+    "price": "$2.31",
+    "url": "https://www.vexrobotics.com/gears.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-7747.jpg",
+    "type": null
+  },
+  "276-7748-001": {
+    "name": "60T High Strength Gear v2",
+    "price": "$2.31",
+    "url": "https://www.vexrobotics.com/gears.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-7748.jpg",
+    "type": null
+  },
+  "276-7574-001": {
+    "name": "72T High Strength Gear v2",
+    "price": "$3.08",
+    "url": "https://www.vexrobotics.com/gears.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-7574.jpg",
+    "type": null
+  },
+  "276-4782-001": {
+    "name": "Rack Gear v2",
+    "price": "$1.47",
+    "url": "https://www.vexrobotics.com/gears.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-2184-rack-gear.jpg",
+    "type": null
+  },
+  "276-7749-001": {
+    "name": "84T High Strength Gear v2",
+    "price": "$4.65",
+    "url": "https://www.vexrobotics.com/gears.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-7749-001.jpg",
+    "type": null
+  },
+  "276-7368-001": {
+    "name": "12T Metal Gear",
+    "price": "$0.99",
+    "url": "https://www.vexrobotics.com/gears.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-7368.png",
+    "type": null
+  },
+  "275-1189-001": {
+    "name": "Bevel Gearbox Bracket",
+    "price": "$5.95",
+    "url": "https://www.vexrobotics.com/advanced-gearbox-brackets.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/f/i/file_5_1_2_1.jpg",
+    "type": null
+  },
+  "276-5771-001": {
+    "name": "Rack Gearbox Bracket v2",
+    "price": "$5.95",
+    "url": "https://www.vexrobotics.com/advanced-gearbox-brackets.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-5771_1.png",
+    "type": null
+  },
+  "275-1187-001": {
+    "name": "Worm Gearbox Bracket",
+    "price": "$7.75",
+    "url": "https://www.vexrobotics.com/advanced-gearbox-brackets.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/f/i/file_2_6_2_1.jpg",
+    "type": null
+  },
+  "276-4989-001": {
+    "name": "#8-32 x 0.500\" Star Drive Coupler",
+    "price": "$0.10",
+    "url": "https://www.vexrobotics.com/couplers-8-32.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/s/t/star_cuppler_1.jpg",
+    "type": null
+  },
+  "276-4988-001": {
+    "name": "#8-32 x 1.000\" Star Drive Coupler",
+    "price": "$0.14",
+    "url": "https://www.vexrobotics.com/couplers-8-32.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/s/t/star_cuppler_2.jpg",
+    "type": null
+  },
+  "275-1000-001": {
+    "name": "#8-32 x 0.500\" Hex Drive Coupler",
+    "price": "$0.14",
+    "url": "https://www.vexrobotics.com/couplers-8-32.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/c/o/coupler-832-0500-25-stack_1.jpg",
+    "type": null
+  },
+  "275-1001-001": {
+    "name": "#8-32 x 1.000\" Hex Drive Coupler",
+    "price": "$0.24",
+    "url": "https://www.vexrobotics.com/couplers-8-32.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/c/o/coupler-832-1000-25-stack_1.jpg",
+    "type": null
+  },
+  "275-1026-001": {
+    "name": "#8-32 Keps Nut",
+    "price": "$0.04",
+    "url": "https://www.vexrobotics.com/nuts-8-32.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/n/u/nut-8-32-keps_1.jpg",
+    "type": null
+  },
+  "275-1027-001": {
+    "name": "#8-32 Nylock Nut",
+    "price": "$0.05",
+    "url": "https://www.vexrobotics.com/nuts-8-32.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/n/u/nut-8-32-nylock_1.jpg",
+    "type": null
+  },
+  "275-1028-001": {
+    "name": "#8-32 Hex Nut",
+    "price": "$0.04",
+    "url": "https://www.vexrobotics.com/nuts-8-32.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/n/u/nut-8-32-hex_1.jpg",
+    "type": null
+  },
+  "276-7767-001": {
+    "name": "#8-32 Low Profile Nut",
+    "price": "$0.06",
+    "url": "https://www.vexrobotics.com/nuts-8-32.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-7767.jpg",
+    "type": null
+  },
+  "276-2575-001": {
+    "name": "C-Channel Coupler Gusset",
+    "price": "$2.95",
+    "url": "https://www.vexrobotics.com/gussets.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-2575_1.jpg",
+    "type": null
+  },
+  "276-2578-001": {
+    "name": "Angle Coupler Gusset",
+    "price": "$2.95",
+    "url": "https://www.vexrobotics.com/gussets.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-2578_2.jpg",
+    "type": null
+  },
+  "276-2576-001": {
+    "name": "Angle Corner Gusset",
+    "price": "$5.90",
+    "url": "https://www.vexrobotics.com/gussets.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-2576_1.jpg",
+    "type": null
+  },
+  "276-2577-001": {
+    "name": "90-Degree Gusset Set",
+    "price": "$2.06",
+    "url": "https://www.vexrobotics.com/gussets.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-2577-4-pack_1.jpg",
+    "type": null
+  },
+  "275-2023-001": {
+    "name": "5x15 Steel Plate",
+    "price": "$3.00",
+    "url": "https://www.vexrobotics.com/plates.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/275-2023_1.jpg",
+    "type": null
+  },
+  "275-1140-001": {
+    "name": "5x25 Steel Plate",
+    "price": "$4.62",
+    "url": "https://www.vexrobotics.com/plates.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/275-1140_1.jpg",
+    "type": null
+  },
+  "276-2906-001": {
+    "name": "1x2x1x35 Steel C-Channel",
+    "price": "$5.45",
+    "url": "https://www.vexrobotics.com/channel.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-2906_2.jpg",
+    "type": null
+  },
+  "275-1138-001": {
+    "name": "1x5x1x25 Steel C-Channel",
+    "price": "$5.40",
+    "url": "https://www.vexrobotics.com/channel.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/275-1138_2.jpg",
+    "type": null
+  },
+  "275-1139-001": {
+    "name": "1x5x1x35 Steel C-Channel",
+    "price": "$5.90",
+    "url": "https://www.vexrobotics.com/channel.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/275-1139_2.jpg",
+    "type": null
+  },
+  "276-2288-001": {
+    "name": "1x2x1x25 Aluminum C-Channel",
+    "price": "$5.96",
+    "url": "https://www.vexrobotics.com/channel.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-2288_1_1.jpg",
+    "type": null
+  },
+  "276-2289-001": {
+    "name": "1x2x1x35 Aluminum C-Channel",
+    "price": "$7.17",
+    "url": "https://www.vexrobotics.com/channel.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-2289.jpg",
+    "type": null
+  },
+  "276-4359-001": {
+    "name": "1x3x1x35 Aluminum C-Channel",
+    "price": "$7.17",
+    "url": "https://www.vexrobotics.com/channel.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-4359.jpg",
+    "type": null
+  },
+  "276-2290-001": {
+    "name": "1x5x1x25 Aluminum C-Channel",
+    "price": "$7.90",
+    "url": "https://www.vexrobotics.com/channel.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-2290.jpg",
+    "type": null
+  },
+  "276-2298-001": {
+    "name": "1x5x1x35 Aluminum C-Channel",
+    "price": "$9.00",
+    "url": "https://www.vexrobotics.com/channel.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-2298.jpg",
+    "type": null
+  },
+  "276-2307-001": {
+    "name": "1x25 Aluminum Bar",
+    "price": "$2.24",
+    "url": "https://www.vexrobotics.com/aluminum-kits.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/275-1141-closeup_1.jpg",
+    "type": null
+  },
+  "276-2311-001": {
+    "name": "5x25 Aluminum Plate",
+    "price": "$5.00",
+    "url": "https://www.vexrobotics.com/aluminum-kits.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/a/l/alumplate_2.jpg",
+    "type": null
+  },
+  "276-6484-001": {
+    "name": "1x1x35 Aluminum Angle",
+    "price": "$4.80",
+    "url": "https://www.vexrobotics.com/aluminum-kits.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-6484_2.jpg",
+    "type": null
+  },
+  "276-2304-001": {
+    "name": "2x2x35 Aluminum Angle",
+    "price": "$7.17",
+    "url": "https://www.vexrobotics.com/aluminum-kits.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-2304.jpg",
+    "type": null
+  },
+  "275-1272-001": {
+    "name": "Hinge",
+    "price": "$5.95",
+    "url": "https://www.vexrobotics.com/275-1272.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/275-1272.jpg",
+    "type": null
+  },
+  "276-1341-001": {
+    "name": "15 x 30 Base Plate",
+    "price": "$17.89",
+    "url": "https://www.vexrobotics.com/276-1341.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-1341-base-plate-pack-a.jpg",
+    "type": null
+  },
+  "275-1141-001": {
+    "name": "1 x 25 Steel Bar",
+    "price": "$1.94",
+    "url": "https://www.vexrobotics.com/275-1141.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/275-1141-closeup.jpg",
+    "type": null
+  },
+  "275-1065-001": {
+    "name": "Drive Shaft Bar Lock",
+    "price": "$0.94",
+    "url": "https://www.vexrobotics.com/275-1065.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/275-1065.jpg",
+    "type": null
+  },
+  "276-4128-001": {
+    "name": "Extension Cable Retaining Clip",
+    "price": "$0.60",
+    "url": "https://www.vexrobotics.com/276-4128.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-4128.jpg",
+    "type": null
+  },
+  "275-1029-001": {
+    "name": "Rubber Link",
+    "price": "$2.27",
+    "url": "https://www.vexrobotics.com/275-1029.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/275-1029-rubber-link.jpg",
+    "type": null
+  },
+  "276-7499-001": {
+    "name": "Rubber Bumper",
+    "price": "$0.81",
+    "url": "https://www.vexrobotics.com/276-7499.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-7499_1_front.jpg",
+    "type": null
+  },
+  "276-2156-001": {
+    "name": "Optical Shaft Encoder",
+    "price": "$11.45",
+    "url": "https://www.vexrobotics.com/276-2156.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-2156-optical-shaft-encoder.jpg",
+    "type": null
+  },
+  "275-1258-001": {
+    "name": "Cinch Strap",
+    "price": "$2.38",
+    "url": "https://www.vexrobotics.com/275-1258.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/275-1258.jpg",
+    "type": null
+  },
+  "276-1032-001": {
+    "name": "4\" Zip Ties",
+    "price": "$0.06",
+    "url": "https://www.vexrobotics.com/zip-ties.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-1035-tie-wrap-4-stack.jpg",
+    "type": null
+  },
+  "275-0125-001": {
+    "name": "11\" Zip Ties",
+    "price": "$0.09",
+    "url": "https://www.vexrobotics.com/zip-ties.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-1035-tie-wrap-11-stack.jpg",
+    "type": null
+  },
+  "276-5011-001": {
+    "name": "T15 Star Drive Keys",
+    "price": "$1.21",
+    "url": "https://www.vexrobotics.com/tools.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/s/t/stardrive-toolbig.jpg",
+    "type": null
+  },
+  "276-5012-001": {
+    "name": "T8 Star Drive Keys",
+    "price": "$1.21",
+    "url": "https://www.vexrobotics.com/tools.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/s/t/stardrive-toolbig_1.jpg",
+    "type": null
+  },
+  "276-5236-001": {
+    "name": "T15 Star Screwdriver",
+    "price": "$3.70",
+    "url": "https://www.vexrobotics.com/tools.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-5236-full.jpg",
+    "type": null
+  },
+  "276-5013-001": {
+    "name": "T8 Star Screwdriver",
+    "price": "$3.70",
+    "url": "https://www.vexrobotics.com/tools.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-5236-full_1.jpg",
+    "type": null
+  },
+  "276-4350-001": {
+    "name": "Open End Wrench",
+    "price": "$2.98",
+    "url": "https://www.vexrobotics.com/tools.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/w/r/wrench.jpg",
+    "type": null
+  },
+  "275-1030-001": {
+    "name": "3/32\" Hex Keys",
+    "price": "$0.77",
+    "url": "https://www.vexrobotics.com/tools.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/275-1030.png",
+    "type": null
+  },
+  "275-1031-001": {
+    "name": "5/64\" Hex Keys",
+    "price": "$0.77",
+    "url": "https://www.vexrobotics.com/tools.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/275-1031.png",
+    "type": null
+  },
+  "276-1499-001": {
+    "name": "Intake Roller",
+    "price": "$1.94",
+    "url": "https://www.vexrobotics.com/intake-roller.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-2026-intake-roller_1.jpg",
+    "type": null
+  },
+  "275-1089-001": {
+    "name": "Synthetic Rubber Band #32",
+    "price": "$0.16",
+    "url": "https://www.vexrobotics.com/rubber-bands.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/f/i/file_28_8_1.jpg",
+    "type": null
+  },
+  "276-3990-001": {
+    "name": "Synthetic Rubber Band #64",
+    "price": "$0.43",
+    "url": "https://www.vexrobotics.com/rubber-bands.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-3990_1.jpg",
+    "type": null
+  },
+  "228-6633-001": {
+    "name": "Silicone Rubber Band #32",
+    "price": "$0.62",
+    "url": "https://www.vexrobotics.com/rubber-bands.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/2/228-6633_siliconerubberband32_front.jpg",
+    "type": null
+  },
+  "228-6634-001": {
+    "name": "Silicone Rubber Band #64",
+    "price": "$0.86",
+    "url": "https://www.vexrobotics.com/rubber-bands.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/2/228-6634_siliconerubberband64_front_1.jpg",
+    "type": null
+  },
+  "276-8076-001": {
+    "name": "EPDM Elastic Bands #32",
+    "price": "$0.62",
+    "url": "https://www.vexrobotics.com/rubber-bands.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-8076_edpmelasticband_front.jpg",
+    "type": null
+  },
+  "276-8077-001": {
+    "name": "EPDM Elastic Bands #64",
+    "price": "$0.86",
+    "url": "https://www.vexrobotics.com/rubber-bands.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-8077_edpmelasticbands_rqc.jpg",
+    "type": null
+  },
+  "276-2723-001": {
+    "name": "Universal Joint",
+    "price": "$3.20",
+    "url": "https://www.vexrobotics.com/276-2723.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-2723-universal-joint-a.jpg",
+    "type": null
+  },
+  "276-2159-001": {
+    "name": "Bumper Switch",
+    "price": "$5.95",
+    "url": "https://www.vexrobotics.com/276-2159.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-2159_bumper_switch.jpg",
+    "type": null
+  },
+  "276-8402-001": {
+    "name": "High Strength Shaft Ball Bearing",
+    "price": "$3.91",
+    "url": "https://www.vexrobotics.com/276-8402.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276_8402_high_strength_shaft_ball_bearing_11_pack_all_parts_07012022.jpg",
+    "type": null
+  },
+  "217-6722-001": {
+    "name": ".302\"",
+    "price": "$1.82",
+    "url": "https://www.vexrobotics.com/276-8402.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/placeholder/default/VEX_3.png",
+    "type": null
+  },
+  "276-1843-001": {
+    "name": "Shaft Coupler",
+    "price": "$1.20",
+    "url": "https://www.vexrobotics.com/276-1843.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-1843-shaft-coupler.jpg",
+    "type": null
+  },
+  "276-6781-001": {
+    "name": "Smart Motor #8-32 Threaded Inserts",
+    "price": "$1.09",
+    "url": "https://www.vexrobotics.com/276-4840.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/e/3/e33a7231_rev2.jpg",
+    "type": null
+  },
+  "276-7417-001": {
+    "name": "Potentiometer V2",
+    "price": "$7.75",
+    "url": "https://www.vexrobotics.com/276-7417.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/v/e/vex_v5_potentiometer_back_right_v01_05252021.jpg",
+    "type": null
+  },
+  "276-8010-001": {
+    "name": "Bumper Switch 6N",
+    "price": "$7.75",
+    "url": "https://www.vexrobotics.com/276-8010.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-8010_bumperswitch6n_rqc_rev1.jpg",
+    "type": null
+  },
+  "276-9044-001": {
+    "name": "2\u201d Omni-Directional Wheel",
+    "price": "$5.90",
+    "url": "https://www.vexrobotics.com/wheels.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-9044_2inomnidirectionalwheel_jamesrqc_rev1_rev1-flipped.jpg",
+    "type": null
+  },
+  "276-8106-001": {
+    "name": "2.75\"",
+    "price": "$11.79",
+    "url": "https://www.vexrobotics.com/wheels.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-8106-composite.jpg",
+    "type": null
+  },
+  "276-8026-001": {
+    "name": "3.25\"",
+    "price": "$11.79",
+    "url": "https://www.vexrobotics.com/wheels.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-8026.png",
+    "type": null
+  },
+  "276-8107-001": {
+    "name": "4\"",
+    "price": "$14.99",
+    "url": "https://www.vexrobotics.com/wheels.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-8107.png",
+    "type": null
+  },
+  "276-1496-001": {
+    "name": "2.75\" Wheel",
+    "price": "$2.97",
+    "url": "https://www.vexrobotics.com/wheels.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-1496-hs.jpg",
+    "type": null
+  },
+  "276-8098-001": {
+    "name": "2.75\"",
+    "price": "$4.84",
+    "url": "https://www.vexrobotics.com/wheels.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276_8098__2_75_anti_static_wheel_2_pack_render_08042022.jpg",
+    "type": null
+  },
+  "276-7771-001": {
+    "name": "3.25\"",
+    "price": "$6.95",
+    "url": "https://www.vexrobotics.com/wheels.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276_7771_3_25_anti_static_wheel_2_pack_render_08032022_1.jpg",
+    "type": null
+  },
+  "276-8103-001": {
+    "name": "4\"",
+    "price": "$8.00",
+    "url": "https://www.vexrobotics.com/wheels.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276_7771_3_25_anti_static_wheel_2_pack_render_08032022.jpg",
+    "type": null
+  },
+  "217-7400-001": {
+    "name": "2\" Mecanum Wheel",
+    "price": "$5.62",
+    "url": "https://www.vexrobotics.com/wheels.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/1/217-7400-4_1.jpg",
+    "type": null
+  },
+  "276-9041-001": {
+    "name": "2\u201d Mecanum Wheels v2",
+    "price": "$12.10",
+    "url": "https://www.vexrobotics.com/wheels.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-9041_801_mecanumwheel_2in_hexagon_rqc_rev1-flipped.jpg",
+    "type": null
+  },
+  "276-1447-001": {
+    "name": "4\" Mecanum Wheel",
+    "price": "$16.75",
+    "url": "https://www.vexrobotics.com/wheels.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-1447-rev2.jpg",
+    "type": null
+  },
+  "275-1186-001": {
+    "name": "45-Degree Gusset",
+    "price": "$0.92",
+    "url": "https://www.vexrobotics.com/v5-structure.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/g/u/gusset-45-stack_1.jpg",
+    "type": null
+  },
+  "275-1145-001": {
+    "name": "2x1x25 Steel Chassis Rail",
+    "price": "$4.47",
+    "url": "https://www.vexrobotics.com/v5-structure.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/275-1145_1.jpg",
+    "type": null
+  },
+  "275-1146-001": {
+    "name": "2x1x35 Steel Chassis Rail",
+    "price": "$5.25",
+    "url": "https://www.vexrobotics.com/v5-structure.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/275-1146_1.jpg",
+    "type": null
+  },
+  "276-6905-001": {
+    "name": "VEX V5 Competition Anti-Static Field Tiles",
+    "price": "$7.41",
+    "url": "https://www.vexrobotics.com/antistatic-tiles.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/e/3/e33a8390.jpg",
+    "type": null
+  },
+  "276-6904-001": {
+    "name": "VEX V5 Competition Anti-Static Field Tiles",
+    "price": "$9.25",
+    "url": "https://www.vexrobotics.com/antistatic-tiles.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/e/3/e33a8383---four-stack.jpg",
+    "type": null
+  },
+  "276-3440-001": {
+    "name": "2\" High Strength Shaft",
+    "price": "$1.50",
+    "url": "https://www.vexrobotics.com/hs-hardware.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-3440.jpg",
+    "type": null
+  },
+  "276-3521-001": {
+    "name": "High Strength Shaft Bearing",
+    "price": "$0.97",
+    "url": "https://www.vexrobotics.com/hs-hardware.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-3521.jpg",
+    "type": null
+  },
+  "276-3522-001": {
+    "name": "3\" High Strength Shaft",
+    "price": "$1.50",
+    "url": "https://www.vexrobotics.com/hs-hardware.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-3522.jpg",
+    "type": null
+  },
+  "276-8383-001": {
+    "name": "High Strength Pillow Block",
+    "price": "$0.97",
+    "url": "https://www.vexrobotics.com/hs-hardware.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276_8383_high_strength_pillow_block_10_pack_left_render_07252022.jpg",
+    "type": null
+  },
+  "276-3523-001": {
+    "name": "4\" High Strength Shaft",
+    "price": "$1.62",
+    "url": "https://www.vexrobotics.com/hs-hardware.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-3523.jpg",
+    "type": null
+  },
+  "276-8235-001": {
+    "name": "High Strength Shaft Adapter",
+    "price": "$0.69",
+    "url": "https://www.vexrobotics.com/hs-hardware.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-8235.jpg",
+    "type": null
+  },
+  "276-8034-001": {
+    "name": "High Strength Shaft Adapter",
+    "price": "$0.80",
+    "url": "https://www.vexrobotics.com/hs-hardware.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-8034.jpg",
+    "type": null
+  },
+  "276-7465-001": {
+    "name": "24\" High Strength Shaft",
+    "price": "$9.24",
+    "url": "https://www.vexrobotics.com/hs-hardware.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/e/3/e33a0204.jpg",
+    "type": null
+  },
+  "276-1149-001": {
+    "name": "12\" Drive Shaft",
+    "price": "$2.72",
+    "url": "https://www.vexrobotics.com/drive-shafts.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-1149_1.jpg",
+    "type": null
+  },
+  "276-6020-001": {
+    "name": "V5 Battery Clip",
+    "price": "$1.50",
+    "url": "https://www.vexrobotics.com/276-6020.html",
+    "stock": true,
+    "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/v/5/v5-battery_1.jpg",
+    "type": null
+  },
+  "276-2174-001": {
+    "name": "Limit Switch",
+    "price": "$7.75",
     "url": "https://www.vexrobotics.com/276-2174.html",
     "stock": true,
     "thumbnail": "https://www.vexrobotics.com/media/catalog/product/cache/b0050ddb83ed22aa68469de4211146e9/2/7/276-2174_limitswitch_lqc_rev1.jpg",
