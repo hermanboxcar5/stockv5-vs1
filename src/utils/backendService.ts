@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 
-const API_BASE = "https://stockv5-backend.vercel.app";
+const API_BASE = "https://stockv5-backend-v1s.vercel.app/";
 
 export interface ClaimItem {
   sku: string;

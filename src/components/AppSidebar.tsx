@@ -62,7 +62,7 @@ export function AppSidebar({ activeView, onNavigate }: AppSidebarProps) {
   const [orgName, setOrgName] = useState<string>("");
   const [items, setItems] = useState(baseItems);
 
-  const API_BASE = "https://stockv5-backend.vercel.app";
+  const API_BASE = "https://stockv5-backend-v1s.vercel.app/";
 
   const getAccessToken = async () => {
     const SUPABASE_URL = 'https://bmmcwlukjgfxmzxjpjwx.supabase.co';

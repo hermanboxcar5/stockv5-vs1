@@ -30,7 +30,7 @@ const Dashboard = () => {
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
-  const API_BASE = "https://stockv5-backend.vercel.app";
+  const API_BASE = "https://stockv5-backend-v1s.vercel.app/";
 
   useEffect(() => {
     // Check if Supabase is already loaded
